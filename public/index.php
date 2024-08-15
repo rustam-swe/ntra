@@ -2,6 +2,7 @@
 
 require "../bootstrap.php";
 require "../functions.php";
+require "../router.php";
 ?>
 
 <!doctype html>

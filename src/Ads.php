@@ -52,9 +52,9 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAds()
+    public function getAds(): false|array
     {
-        $query = "SELECT *, ads.address AS address FROM ads JOIN branch ON branch.id = ads.branch_id";
+        $query = "SELECT *, ads.id AS id, ads.address AS address FROM ads JOIN branch ON branch.id = ads.branch_id";
          return $this->pdo->query($query)->fetchAll();
     }
 
