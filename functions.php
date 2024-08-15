@@ -21,8 +21,8 @@ function basePath(string $path): string
     return __DIR__ . $path;
 }
 
-function loadView(string $path, array $args)
+function view(string $path, array $args=[])
 {
     extract($args);
-    require $path;
+    require basePath('/public/' . $path);
 }

@@ -44,10 +44,11 @@ class Router
     public static function get($path, $callback): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            if ((new self())->getResourceId()) {
-                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+            $resourceId = (new self())->getResourceId();
+            if ($resourceId) {
+                $path = str_replace('{id}', (string) $resourceId, $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                    $callback((new self())->getResourceId());
+                    $callback($resourceId);
                     exit();
                 }
             }
