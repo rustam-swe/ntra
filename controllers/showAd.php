@@ -1,11 +1,12 @@
 <?php
 
-declare(strict_types=1);
+/** @var TYPE_NAME $id */
 
-/**
- * @var $id
- */
+$ads = new \App\Ads();
+$ad = $ads->getAd($id);
 
-dd($id);
-echo 'Abduqodirjon';
-//(new \App\Ads())->getAd();
+view('/pages/single-ad.php',[
+        'ad'=>$ad
+]);
+
+?>

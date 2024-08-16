@@ -42,14 +42,14 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAd($id): array
+    public function getAd($id):mixed
     {
         $query = "SELECT * FROM ads WHERE id = :id";
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 
     public function getAds(): false|array
