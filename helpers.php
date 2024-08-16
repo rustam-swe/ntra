@@ -24,10 +24,16 @@ function basePath(string $path): string
 
 function loadView(string $path, array|null $args = null): void
 {
+    $filePath = basePath('/public/pages/'.$path.'.php');
+    if (!file_exists($filePath)) {
+        echo "Required view not found: $filePath";
+        return;
+    }
+
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/public/pages/'.$path.'.php');
+    require $filePath;
 }
 
 function loadPartials(string $path, array|null $args = null): void
