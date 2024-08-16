@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 use App\Ads;
 
 function dd($args)
@@ -18,11 +19,13 @@ function getAds(): false|array
 
 function basePath(string $path): string
 {
-    return __DIR__ . $path;
+    return __DIR__.$path;
 }
 
-function loadView(string $path, array $args)
+function loadView(string $path, array|null $args = null)
 {
-    extract($args);
-    require $path;
+    if (is_array($args)) {
+        extract($args);
+    }
+    require basePath('/public/pages/'.$path.'.php');
 }
