@@ -51,11 +51,6 @@ $ad = (new \App\Ads())->getAd($id);
                     <p class="text-sm text-gray-500"><?= $ad->created_at?></p>
                 </div>
             </div>
-
-            <div class="mt-6">
-                <iframe src="YOUR_MAP_URL_HERE" class="w-full h-64 rounded-lg" allowfullscreen></iframe>
-            </div>
-
         </div>
     </div>
 </div>

@@ -70,9 +70,9 @@ class Router
     {
         http_response_code($code);
         if ($code == 404) {
-            require 'view/pages/404.php';
+            loadView('404');
         }
-        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
+//        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
     }
 }
