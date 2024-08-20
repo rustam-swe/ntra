@@ -11,6 +11,24 @@ Router::get('/ads/{id}', function (int $id) {
 });
 
 Router::get('/ads/create', fn()=> loadView('dashboard/create-ad'));
+
+
+
+
+
+
+
+
+
 Router::post('/ads/create', fn()=> loadController('createAd'));
+
+
+
+
+
+
+
+
+
 
 Router::errorResponse(404, 'Not Found');
