@@ -14,11 +14,13 @@ class Status
         $this->pdo = DB::connect();
     }
 
-    public function createStatus(string $name): bool
+    public function createStatus(string $name): false|string
     {
         $stmt = $this->pdo->prepare("INSERT INTO `status` (`name`) VALUES (:name)");
         $stmt->bindParam(':name', $name);
-        return $stmt->execute();
+        $stmt->execute();
+
+        return $this->pdo->lastInsertId();
     }
 
     public function updateStatus(int $id, string $name): bool

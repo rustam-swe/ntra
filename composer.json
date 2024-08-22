@@ -3,7 +3,8 @@
   "description": "najot ta'lim rent app",
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "App\\": "src/",
+      "Controller\\": "controllers/"
     }
   },
   "require": {

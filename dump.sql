@@ -33,6 +33,7 @@ CREATE TABLE `ads` (
   `price` float DEFAULT NULL,
   `rooms` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ads_status` (`status_id`),
   KEY `ads_branch` (`branch_id`),
@@ -40,7 +41,7 @@ CREATE TABLE `ads` (
   CONSTRAINT `ads_branch` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`),
   CONSTRAINT `ads_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
   CONSTRAINT `ads_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,7 +50,35 @@ CREATE TABLE `ads` (
 
 LOCK TABLES `ads` WRITE;
 /*!40000 ALTER TABLE `ads` DISABLE KEYS */;
+INSERT INTO `ads` VALUES (2,'10 xonali kvartira isjaraga beriladi','desc',6,1,1,'Chilonzor',100,4,'2024-08-09 13:09:43',NULL),(3,'20 xonali kvartira isjaraga beriladi','desc 2',6,1,1,'Xorazm',200,4,'2024-08-09 13:09:43',NULL),(5,'Dacha arenda','Super cheap and awesome dacha',5,1,1,'Malibu beach',10000,12,'2024-08-16 14:56:28',NULL),(6,'Title','desc',5,1,1,'adress',100,1,'2024-08-20 12:14:45',NULL),(7,'Title','desc',5,1,1,'address',100,100,'2024-08-20 12:16:32',NULL),(8,'Title','desc',5,1,1,'address',100,100,'2024-08-20 12:17:48',NULL),(9,'Title','desc',5,1,1,'address',100,100,'2024-08-20 12:18:57',NULL),(10,'','',5,1,1,'',0,0,'2024-08-20 12:23:22',NULL),(11,'','',5,1,1,'',0,0,'2024-08-20 12:37:43',NULL),(12,'','',5,1,1,'',0,0,'2024-08-20 12:37:59',NULL),(13,'123','123',5,1,1,'213',123,123,'2024-08-20 14:32:37',NULL),(14,'098','098',5,1,1,'098',987,98,'2024-08-20 14:35:01',NULL);
 /*!40000 ALTER TABLE `ads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ads_image`
+--
+
+DROP TABLE IF EXISTS `ads_image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ads_image` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ads_id` int DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ads_image_ads_id_fk` (`ads_id`),
+  CONSTRAINT `ads_image_ads_id_fk` FOREIGN KEY (`ads_id`) REFERENCES `ads` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ads_image`
+--
+
+LOCK TABLES `ads_image` WRITE;
+/*!40000 ALTER TABLE `ads_image` DISABLE KEYS */;
+INSERT INTO `ads_image` VALUES (1,14,'66c4a995eef40___image 1.png');
+/*!40000 ALTER TABLE `ads_image` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -65,7 +94,7 @@ CREATE TABLE `branch` (
   `address` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +103,7 @@ CREATE TABLE `branch` (
 
 LOCK TABLES `branch` WRITE;
 /*!40000 ALTER TABLE `branch` DISABLE KEYS */;
+INSERT INTO `branch` VALUES (1,'Farg\'ona','Farg\'ona, Farg\'ona, 1','2024-08-09 13:08:20');
 /*!40000 ALTER TABLE `branch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +118,7 @@ CREATE TABLE `status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +127,7 @@ CREATE TABLE `status` (
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` VALUES (1,'Active');
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,4 +170,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-08 20:17:12
+-- Dump completed on 2024-08-20 20:23:28
