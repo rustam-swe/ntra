@@ -12,7 +12,7 @@ class User
 
     public function __construct()
     {
-        $this->pdo = Db::connect();
+        $this->pdo = DB::connect();
     }
 
     public function createUser(
@@ -40,6 +40,16 @@ class User
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getByUsername(string $username, string $password)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
 
     public function updateUser(
