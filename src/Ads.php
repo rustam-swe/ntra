@@ -65,6 +65,16 @@ class Ads
          return $this->pdo->query($query)->fetchAll();
     }
 
+    public function getUsersAds(int $userId): false|array
+    {
+        $query = "SELECT *, ads.id AS id, ads.address AS address, ads_image.name AS image
+                  FROM ads
+                    JOIN branch ON branch.id = ads.branch_id
+                    LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                  WHERE user_id = $userId"; // FIXME: Prepare userId
+        return $this->pdo->query($query)->fetchAll();
+    }
+
     public function updateAds(
         int    $id,
         string $title,

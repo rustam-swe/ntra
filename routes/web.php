@@ -18,4 +18,7 @@ Router::post('/status/create', fn() => loadController('createStatus'));
 Router::get('/login', fn() => loadView('auth/login'));
 Router::post('/login', fn() => (new \Controller\AuthController())->login());
 
+Router::get('/admin', fn() => loadView('dashboard/home'));
+Router::get('/profile2', fn() => (new \Controller\UserController())->loadProfile());
+
 Router::errorResponse(404, 'Not Found');

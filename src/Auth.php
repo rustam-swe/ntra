@@ -28,36 +28,35 @@ class Auth
 
 
         // |public
-        // |- dashboard
+        // |- dashboard/profile
         // |--- assets
         // |--- pages
         // |--- partials
-        // |- profile
+        // |- public
         // |--- assets
         // |--- pages
         // |--- partials
-
 
 
         // Execute query
         $userWithRoles = $this->pdo->query($query)->fetch();
         if ($userWithRoles->role_id === Role::ADMIN) {
-            loadView('dashboard/home');
-            return;
+            redirect('/admin');
         }
 
-        dd("profile page");
 
-        if ($user) {
+        if ($userWithRoles) {
             $_SESSION['user'] = [
-                'username' => $user['username'],
-                'id'       => $user['id'],
+                'username' => $userWithRoles->username,
+                'id'       => $userWithRoles->id,
+                'role'     => $userWithRoles->role_id
             ];
+
             unset($_SESSION['message']['error']);
-            header('Location: /');
-            exit();
+            redirect('/profile2');
         }
+
         $_SESSION['message']['error'] = "Wrong email or password";
-        header('Location: /login');
+        redirect('/login');
     }
 }

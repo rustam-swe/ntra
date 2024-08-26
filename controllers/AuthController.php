@@ -9,7 +9,7 @@ use App\Auth;
 class AuthController
 {
 
-    public function login()
+    public function login(): void
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
