@@ -63,4 +63,8 @@ class AdController
 
         echo "Iltimos, barcha maydonlarni to'ldiring!";
     }
+
+    public function update(int $id): void{
+        loadView('dashboard/create-ad', ['ad' => (new \App\Ads())->getAd($id)]);
+    }
 }
