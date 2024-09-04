@@ -18,7 +18,7 @@ loadPartials('navbar');
                 <div class="grid grid-cols-1 relative">
                     <div class="tiny-one-item">
                         <div class="tiny-slide">
-                            <img src="<?=$ad->image?>"
+                            <img src="<?=  \App\Image::show($ad->image) ?>"
                                  class="rounded-md shadow dark:shadow-gray-700" alt="">
                         </div>
 
@@ -45,7 +45,8 @@ loadPartials('navbar');
                 </div>
 
                 <h4 class="text-2xl font-medium mt-6 mb-3"><?= $ad->title; ?></h4>
-                <span class="text-slate-400 flex items-center"><i data-feather="map-pin" class="size-5 me-2"></i><?= $ad->address;?></span>
+                <span class="text-slate-400 flex items-center"><i data-feather="map-pin"
+                                                                  class="size-5 me-2"></i><?= $ad->address; ?></span>
 
                 <ul class="py-6 flex items-center list-none">
                     <li class="flex items-center lg:me-6 me-4">
@@ -55,7 +56,7 @@ loadPartials('navbar');
 
                     <li class="flex items-center lg:me-6 me-4">
                         <i class="uil uil-bed-double lg:text-3xl text-2xl me-2 text-green-600"></i>
-                        <span class="lg:text-xl"><?= $ad->rooms;?> xona</span>
+                        <span class="lg:text-xl"><?= $ad->rooms; ?> xona</span>
                     </li>
 
                     <li class="flex items-center">
@@ -64,7 +65,7 @@ loadPartials('navbar');
                     </li>
                 </ul>
 
-                <p class="text-slate-400"><?= $ad->description;?></p>
+                <p class="text-slate-400"><?= $ad->description; ?></p>
 
                 <div class="w-full leading-[0] border-0 mt-6">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin"
@@ -79,9 +80,9 @@ loadPartials('navbar');
                             <h5 class="text-2xl font-medium">Narxi:</h5>
 
                             <div class="flex justify-between items-center mt-4">
-                                <span class="text-xl font-medium">$ <?= $ad->price;?></span>
+                                <span class="text-xl font-medium">$ <?= $ad->price; ?></span>
 
-                                <span class="bg-green-600/10 text-green-600 text-sm px-2.5 py-0.75 rounded h-6"><?= $ad->status_id;?></span>
+                                <span class="bg-green-600/10 text-green-600 text-sm px-2.5 py-0.75 rounded h-6"><?= $ad->status_id; ?></span>
                             </div>
 
                             <ul class="list-none mt-4">
@@ -92,12 +93,12 @@ loadPartials('navbar');
 
                                 <li class="flex justify-between items-center mt-2">
                                     <span class="text-slate-400 text-sm">Filial:</span>
-                                    <span class="font-medium text-sm"><?= $ad->branch_id;?></span>
+                                    <span class="font-medium text-sm"><?= $ad->branch_id; ?></span>
                                 </li>
 
                                 <li class="flex justify-between items-center mt-2">
                                     <span class="text-slate-400 text-sm">Sana</span>
-                                    <span class="font-medium text-sm"><?= $ad->created_at;?></span>
+                                    <span class="font-medium text-sm"><?= $ad->created_at; ?></span>
                                 </li>
                             </ul>
                         </div>
@@ -119,9 +120,13 @@ loadPartials('navbar');
                             Get in touch!</h3>
 
                         <div class="mt-6">
-                            <a href="contact.html"
-                               class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md"><i
-                                        class="uil uil-phone align-middle me-2"></i> Contact us</a>
+                            <form action="/ads/delete/<?= $ad->id ?>" method="post">
+                                <input type="hidden" name="_method" value="delete">
+                                <button type="submit"
+                                        class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md">
+                                    <i class="uil uil-phone align-middle me-2"></i>Delete
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

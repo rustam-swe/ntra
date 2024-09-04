@@ -63,7 +63,43 @@ class Router
 
     public static function post($path, $callback): void
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'
+            && $_SERVER['REQUEST_URI'] === $path
+            && strtolower($_REQUEST['_method']) === 'patch'
+        ) {
+            $callback();
+            exit();
+        }
+    }
+
+    public static function patch($path, $callback): void
+    {
+        $isPatch = strtolower($_REQUEST['_method']) === 'patch';
+
+        if (!$isPatch) {
+            return;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
+            $callback();
+            exit();
+        }
+    }
+
+    public static function delete(string $path, $callback): void
+    {
+        if(strtolower($_REQUEST['_method']) !== 'delete') {
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ((new self())->getResourceId()) {
+                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    $callback((new self())->getResourceId());
+                    exit();
+                }
+            }
             $callback();
             exit();
         }

@@ -267,7 +267,8 @@ if (in_array('create', $uri)) {
                             </div>
 
                             <div class="rounded-md shadow dark:shadow-gray-700 p-6 bg-white dark:bg-slate-900 h-fit">
-                                <form id="ads-create" action="<?=$action?>" method="<?=$method?>" enctype="multipart/form-data">
+                                <form id="ads-create" action="<?=$action?>" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="_method" value="paTCh">
                                     <div class="grid grid-cols-12 gap-5">
                                         <div class="col-span-12">
                                             <label for="title" class="font-medium">Sarlavha</label>
