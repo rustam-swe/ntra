@@ -20,16 +20,20 @@ Router::post('/status/create', fn() => loadController('createStatus'));
 Router::get('/login',  fn() => loadView('auth/login'), 'guest');
 Router::post('/login', fn() => (new \Controllers\AuthController())->login());
 
-Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
+Router::get('/admin', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
+Router::get('/admin/ads', fn() => (new \Controllers\AdController())->index(), 'auth');
+
 Router::get('/profile2', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
 Router::delete('/ads/delete/{id}', fn(int $id)=>(new AdController())->delete($id));
 Router::errorResponse(404, 'Not Found');
 
 /**
- * Delete ad:
- * Requirements: ad_id
- *
- * Delete:
- * 1. From ads_image table
- * 2.
+ * Branch CRUD:
+ * 1. Create
+ *  - route: GET: /branches/create
+ *  - route: POST: /branches/create
+ *  - route: GET: /branches
+ * 2. View
+ *  - Controller
+ *  - Pages
  */

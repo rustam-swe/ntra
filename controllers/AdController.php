@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Controllers;
 
 use App\Ads;
+use App\Session;
 
 class AdController
 {
@@ -24,6 +25,12 @@ class AdController
         $ad->image = "../assets/images/ads/$ad->image";
 
         loadView('single-ad', ['ad' => $ad]);
+    }
+
+    public function index(): void
+    {
+        $ads = (new Ads())->getUsersAds((new Session())->getId());
+        loadView('dashboard/ads', ['ads' => $ads]);
     }
 
     public function create(): void
