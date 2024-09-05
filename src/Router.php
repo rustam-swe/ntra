@@ -85,8 +85,10 @@ class Router
 
     public static function delete(string $path, $callback): void
     {
-        if (strtolower($_REQUEST['_method']) !== 'delete') {
-            return;
+        if (isset($_REQUEST['_method'])) {
+            if (strtolower($_REQUEST['_method']) !== 'delete') {
+                return;
+            }
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

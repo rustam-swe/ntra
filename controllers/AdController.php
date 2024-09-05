@@ -16,6 +16,12 @@ class AdController
         $this->ads = new Ads();
     }
 
+    public function index(): void
+    {
+        $ads = $this->ads->getAds();
+        loadView('dashboard/ads', ['ads' => $ads]);
+    }
+
     public function show(int $id): void
     {
         $ad        = $this->ads->getAd($id);
@@ -75,7 +81,8 @@ class AdController
         echo "Iltimos, barcha maydonlarni to'ldiring!";
     }
 
-    public function update(int $id): void{
+    public function update(int $id): void
+    {
         loadView('dashboard/create-ad', ['ad' => $this->ads->getAd($id)]);
     }
 
