@@ -21,6 +21,19 @@ Router::get('/login',  fn() => loadView('auth/login'), 'guest');
 Router::post('/login', fn() => (new \Controllers\AuthController())->login());
 
 Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
+
+
+
+
+
+
+Router::get('/admin/ads', fn() => (new AdController())->index(), 'auth');
+
+
+
+
+
+
 Router::get('/profile2', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
 Router::delete('/ads/delete/{id}', fn(int $id)=>(new AdController())->delete($id));
 Router::errorResponse(404, 'Not Found');
