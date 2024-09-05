@@ -18,123 +18,223 @@ loadPartials(path: 'header', loadFromPublic: false);
 
 
 <div class="page-wrapper toggled">
-    <?php loadPartials('sidebar', loadFromPublic: false);?>
+    <?php
+    loadPartials(path: 'sidebar', loadFromPublic: false); ?>
 
     <!-- Start Page Content -->
     <main class="page-content bg-gray-50 dark:bg-slate-800">
-        <!-- Top Header -->
-        <?php loadPartials('top-header', loadFromPublic: false);?>
-        <!-- Top Header -->
+        <?php
+        loadPartials(path: 'top-header', loadFromPublic: false); ?>
 
         <div class="container-fluid relative px-3">
             <div class="layout-specing">
                 <!-- Start Content -->
                 <div class="flex justify-between items-center">
                     <div>
-                        <h5 class="text-xl font-semibold">Assalomu alaykum, <?= (new \App\Session())->getName()?></h5>
-                        <h6 class="text-slate-400">Xush kelibsiz!</h6>
+                        <h5 class="text-xl font-semibold">Hello, Calvin</h5>
+                        <h6 class="text-slate-400">Welcome back!</h6>
                     </div>
                 </div>
-                    <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
 
-                        <?php
-                        /**
-                         * @var $ads
-                         */
-                        foreach ($ads as $ad):?>
-                            <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
-                                <div class="relative">
-                                    <img src="../assets/images/ads/<?= $ad->image?>" alt="">
+                <div class="grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 mt-6 gap-6">
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                        <div class="p-5 flex items-center justify-between">
+                                    <span class="me-3">
+                                        <span class="text-slate-400 block">Total Revenue</span>
+                                        <span class="flex items-center justify-between mt-1">
+                                            <span class="text-2xl font-medium">$ <span class="counter-value"
+                                                                                       data-target="45890">42205</span></span>
+                                        </span>
+                                    </span>
 
-                                    <div class="absolute top-4 end-4">
-                                        <a href="javascript:void(0)"
-                                           class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                    class="mdi mdi-heart text-[20px]"></i></a>
+                            <span class="flex justify-center items-center rounded-md size-12 min-w-[48px] bg-slate-50 dark:bg-slate-800 shadow shadow-gray-100 dark:shadow-gray-700 text-green-600">
+                                        <i class="mdi mdi-currency-usd text-[28px]"></i>
+                                    </span>
+                        </div>
+                    </div><!--end-->
+
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                        <div class="p-5 flex items-center justify-between">
+                                    <span class="me-3">
+                                        <span class="text-slate-400 block">Total Visitor</span>
+                                        <span class="flex items-center justify-between mt-1">
+                                            <span class="text-2xl font-medium"><span class="counter-value"
+                                                                                     data-target="2456">1857</span></span>
+                                        </span>
+                                    </span>
+
+                            <span class="flex justify-center items-center rounded-md size-12 min-w-[48px] bg-slate-50 dark:bg-slate-800 shadow shadow-gray-100 dark:shadow-gray-700 text-green-600">
+                                        <i class="mdi mdi-account-group-outline text-[28px]"></i>
+                                    </span>
+                        </div>
+                    </div><!--end-->
+
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                        <div class="p-5 flex items-center justify-between">
+                                    <span class="me-3">
+                                        <span class="text-slate-400 block">Total Properties</span>
+                                        <span class="flex items-center justify-between mt-1">
+                                            <span class="text-2xl font-medium"><span class="counter-value"
+                                                                                     data-target="358">54</span></span>
+                                        </span>
+                                    </span>
+
+                            <span class="flex justify-center items-center rounded-md size-12 min-w-[48px] bg-slate-50 dark:bg-slate-800 shadow shadow-gray-100 dark:shadow-gray-700 text-green-600">
+                                        <i class="mdi mdi-home-city-outline text-[28px]"></i>
+                                    </span>
+                        </div>
+                    </div><!--end-->
+
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                        <div class="p-5 flex items-center justify-between">
+                                    <span class="me-3">
+                                        <span class="text-slate-400 block">Properties for Sell</span>
+                                        <span class="flex items-center justify-between mt-1">
+                                            <span class="text-2xl font-medium"><span class="counter-value"
+                                                                                     data-target="243">60</span></span>
+                                        </span>
+                                    </span>
+
+                            <span class="flex justify-center items-center rounded-md size-12 min-w-[48px] bg-slate-50 dark:bg-slate-800 shadow shadow-gray-100 dark:shadow-gray-700 text-green-600">
+                                        <i class="mdi mdi-home-lightning-bolt-outline text-[28px]"></i>
+                                    </span>
+                        </div>
+                    </div><!--end-->
+
+                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                        <div class="p-5 flex items-center justify-between">
+                                    <span class="me-3">
+                                        <span class="text-slate-400 block">Properties for Rent</span>
+                                        <span class="flex items-center justify-between mt-1">
+                                            <span class="text-2xl font-medium"><span class="counter-value"
+                                                                                     data-target="115">45</span></span>
+                                        </span>
+                                    </span>
+
+                            <span class="flex justify-center items-center rounded-md size-12 min-w-[48px] bg-slate-50 dark:bg-slate-800 shadow shadow-gray-100 dark:shadow-gray-700 text-green-600">
+                                        <i class="mdi mdi-home-clock-outline text-[28px]"></i>
+                                    </span>
+                        </div>
+                    </div><!--end-->
+                </div>
+
+                <div class="grid lg:grid-cols-12 grid-cols-1 mt-6 gap-6">
+                    <div class="lg:col-span-8">
+                        <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                            <div class="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
+                                <h6 class="text-lg font-semibold">Revenue Analytics</h6>
+
+                                <div class="position-relative">
+                                    <select class="form-select form-input w-full py-2 h-10 bg-white dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 focus:border-gray-200 dark:border-gray-800 dark:focus:border-gray-700 focus:ring-0"
+                                            id="yearchart">
+                                        <option value="Y" selected>Yearly</option>
+                                        <option value="M">Monthly</option>
+                                        <option value="W">Weekly</option>
+                                        <option value="T">Today</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="mainchart" class="apex-chart px-4 pb-6"></div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4">
+                        <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                            <div class="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
+                                <h6 class="text-lg font-semibold">Sales Data</h6>
+
+                                <div class="position-relative">
+                                    <select class="form-select form-input w-full py-2 h-10 bg-white dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 focus:border-gray-200 dark:border-gray-800 dark:focus:border-gray-700 focus:ring-0"
+                                            id="yearchart">
+                                        <option value="Y" selected>Yearly</option>
+                                        <option value="M">Monthly</option>
+                                        <option value="W">Weekly</option>
+                                        <option value="T">Today</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="p-6">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Website</span>
+                                        <span class="text-slate-400">50%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 50%"></div>
                                     </div>
                                 </div>
 
-                                <div class="p-6">
-                                    <div class="pb-6">
-                                        <a href="/ads/<?= $ad->id ?>"
-                                           class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $ad->title; ?></a>
+                                <div class="mt-5">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Team Member</span>
+                                        <span class="text-slate-400">12%</span>
                                     </div>
-
-                                    <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
-                                        <li class="flex items-center me-4">
-                                            <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                            <span>8000sqf</span>
-                                        </li>
-
-                                        <li class="flex items-center me-4">
-                                            <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                            <span>4 Beds</span>
-                                        </li>
-
-                                        <li class="flex items-center">
-                                            <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                            <span>4 Baths</span>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="pt-6 flex justify-between items-center list-none">
-                                        <li>
-                                            <span class="text-slate-400">Price</span>
-                                            <p class="text-lg font-medium">$ <?= $ad->price ?></p>
-                                        </li>
-
-                                    </ul>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 12%"></div>
+                                    </div>
                                 </div>
-                            </div><!--end property content-->
-                        <?php
-                        endforeach; ?>
-                    </div><!--en grid-->
+
+                                <div class="mt-5">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Agents</span>
+                                        <span class="text-slate-400">6%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 6%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Social Media</span>
+                                        <span class="text-slate-400">15%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 15%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Digital Marketing</span>
+                                        <span class="text-slate-400">12%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 12%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="flex justify-between mb-2">
+                                        <span class="text-slate-400">Via Others</span>
+                                        <span class="text-slate-400">5%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-[6px]">
+                                        <div class="bg-green-600 h-[6px] rounded-full" style="width: 5%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-12 grid-cols-1 mt-6 gap-6">
+                    <div class="xl:col-span-3 lg:col-span-6 order-1">
+                        <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                            <div class="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
+                                <h6 class="text-lg font-semibold">Area Map</h6>
 
                 <!-- End Content -->
             </div>
         </div><!--end container-->
 
-        <!-- Footer Start -->
-        <footer class="shadow dark:shadow-gray-700 bg-white dark:bg-slate-900 px-6 py-4">
-            <div class="container-fluid">
-                <div class="grid grid-cols-1">
-                    <div class="sm:text-start text-center mx-md-2">
-                        <p class="mb-0 text-slate-400">©
-                            <script>document.write(new Date().getFullYear())</script>
-                            Hously. Design with <i class="mdi mdi-heart text-red-600"></i> by <a
-                                    href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.
-                        </p>
-                    </div><!--end col-->
-                </div><!--end grid-->
-            </div><!--end container-->
-        </footer><!--end footer-->
-        <!-- End -->
+        <?php
+        loadPartials(path: 'dashboard-footer', loadFromPublic: false); ?>
     </main>
     <!--End page-content" -->
 </div>
 <!-- page-wrapper -->
-
-<!-- Switcher -->
-<div class="fixed top-[30%] -end-2 z-50">
-            <span class="relative inline-block rotate-90">
-                <input type="checkbox" class="checkbox opacity-0 absolute" id="chk"/>
-                <label class="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-700 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8"
-                       for="chk">
-                    <i data-feather="moon" class="size-[18px] text-yellow-500"></i>
-                    <i data-feather="sun" class="size-[18px] text-yellow-500"></i>
-                    <span class="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] size-7"></span>
-                </label>
-            </span>
-</div>
-<!-- Switcher -->
-
-<!-- LTR & RTL Mode Code -->
-<div class="fixed top-[40%] -end-3 z-50">
-    <a href="" id="switchRtl">
-        <span class="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-700 font-bold rtl:block ltr:hidden">LTR</span>
-        <span class="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-700 font-bold ltr:block rtl:hidden">RTL</span>
-    </a>
-</div>
-<!-- LTR & RTL Mode Code -->
 
 <?php
 loadPartials(path: 'footer', loadFromPublic: false);

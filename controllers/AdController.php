@@ -18,12 +18,7 @@ class AdController
 
     public function show(int $id): void
     {
-        /**
-         * @var $id
-         */
         $ad        = $this->ads->getAd($id);
-        $ad->image = "../assets/images/ads/$ad->image";
-
         loadView('single-ad', ['ad' => $ad]);
     }
 
