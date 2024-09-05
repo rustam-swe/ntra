@@ -63,10 +63,7 @@ class Router
 
     public static function post($path, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'
-            && $_SERVER['REQUEST_URI'] === $path
-            && strtolower($_REQUEST['_method']) === 'patch'
-        ) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
             $callback();
             exit();
         }
@@ -88,7 +85,7 @@ class Router
 
     public static function delete(string $path, $callback): void
     {
-        if(strtolower($_REQUEST['_method']) !== 'delete') {
+        if (strtolower($_REQUEST['_method']) !== 'delete') {
             return;
         }
 

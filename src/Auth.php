@@ -40,10 +40,6 @@ class Auth
 
         // Execute query
         $userWithRoles = $this->pdo->query($query)->fetch();
-        if ($userWithRoles->role_id === Role::ADMIN) {
-            redirect('/admin');
-        }
-
 
         if ($userWithRoles) {
             $_SESSION['user'] = [
@@ -51,6 +47,10 @@ class Auth
                 'id'       => $userWithRoles->id,
                 'role'     => $userWithRoles->role_id
             ];
+
+            if ($userWithRoles->role_id === Role::ADMIN) {
+                redirect('/admin');
+            }
 
             unset($_SESSION['message']['error']);
             redirect('/profile2');
