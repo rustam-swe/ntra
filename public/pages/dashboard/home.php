@@ -4,7 +4,6 @@ declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
 ?>
 
-<body class="font-body text-base text-black dark:text-white dark:bg-slate-900">
 <!-- Loader Start -->
 <!-- <div id="preloader">
     <div id="status">

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Controllers;
 
 use App\Ads;
+use App\Branch;
 use App\Session;
+use App\Status;
 
 class AdController
 {
@@ -24,40 +26,37 @@ class AdController
 
     public function show(int $id): void
     {
-        $ad        = $this->ads->getAd($id);
+        $ad = $this->ads->getAd($id);
         loadView('single-ad', ['ad' => $ad]);
-    }
-
-    public function index(): void
-    {
-        $ads = (new Ads())->getUsersAds((new Session())->getId());
-        loadView('dashboard/ads', ['ads' => $ads]);
     }
 
     public function create(): void
     {
-        $title       = $_POST['title'];
-        $description = $_POST['description'];
-        $price       = (float) $_POST['price'];
-        $address     = $_POST['address'];
-        $rooms       = (int) $_POST['rooms'];
+        loadView('/dashboard/create-ad', [
+            'action'   => "/admin/ads/store",
+            'ad'       => null,
+            'branches' => (new Branch())->getBranches()
+        ]);
+    }
 
+    public function store(): void
+    {
         if ($_POST['title']
             && $_POST['description']
             && $_POST['price']
             && $_POST['address']
             && $_POST['rooms']
+            && $_POST['branch']
         ) {
-            // TODO: Replace hardcoded values
             $newAdsId = $this->ads->createAds(
-                $title,
-                $description,
-                5,
-                1,
-                1,
-                $address,
-                $price,
-                $rooms
+                $_POST['title'],
+                $_POST['description'],
+                (new Session())->getId(),
+                Status::ACTIVE,
+                (int) $_POST['branch'],
+                $_POST['address'],
+                (float) $_POST['price'],
+                (int) $_POST['rooms']
             );
 
             if ($newAdsId) {
@@ -70,7 +69,7 @@ class AdController
 
                 $imageHandler->addImage((int) $newAdsId, $fileName);
 
-                header('Location: /');
+                header('Location: /admin/ads/create');
 
                 exit();
             }
@@ -83,7 +82,10 @@ class AdController
 
     public function update(int $id): void
     {
-        loadView('dashboard/create-ad', ['ad' => $this->ads->getAd($id)]);
+        loadView('dashboard/update-ad', [
+            'ad'       => $this->ads->getAd($id),
+            'branches' => (new Branch())->getBranches()
+        ]);
     }
 
     public function delete(int $id): void

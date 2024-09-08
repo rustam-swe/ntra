@@ -44,9 +44,15 @@ class Ads
 
     public function getAd($id)
     {
-        $query = "SELECT ads.*, name AS image
+        $query = "SELECT ads.*,
+                         ads_image.name AS image,
+                         branch.name    AS branch_name,
+                         branch.id      AS branch_id,
+                         branch.address AS branch_address,
+                         branch.image   AS branch_image
                   FROM ads
-                    LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                         LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                         LEFT JOIN branch on ads.branch_id = branch.id
                   WHERE ads.id = :id";
 
         $stmt  = $this->pdo->prepare($query);

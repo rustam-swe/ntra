@@ -9,8 +9,14 @@
                 <a href="/admin"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Dashboard</a>
             </li>
 
-            <li>
-                <a href="/admin/ads"><i class="mdi mdi-home-city me-2"></i>E'lonlar</a>
+            <li class="sidebar-dropdown">
+                <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i> E'lonlar</a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li><a href="/admin/ads/create"><i class="mdi mdi-home-plus me-2"></i>E'lon qo'shish</a></li>
+                        <li><a href="/admin/ads"><i class="mdi mdi-home-city me-2"></i>E'lonlar</a></li>
+                    </ul>
+                </div>
             </li>
 
             <li>
@@ -20,6 +26,7 @@
             <li>
                 <a href="/admin/users"><i class="mdi mdi-home-plus me-2"></i>Foydalanuvchilar</a>
             </li>
+
         </ul>
         <!-- sidebar-menu  -->
     </div>

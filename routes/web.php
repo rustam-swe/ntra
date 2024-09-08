@@ -8,8 +8,9 @@ use Controllers\AdController;
 Router::get('/', fn() => loadController('home'));
 
 Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
-Router::get('/ads/create', fn() => loadView('dashboard/create-ad'));
-Router::post('/ads/create', fn() => (new AdController())->create());
+Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth');
+Router::post('/admin/ads/store', fn() => (new AdController())->store());
+Router::post('/ads/update/25', fn() => dd([$_REQUEST, $_FILES]));
 
 Router::get('/ads/update/{id}', fn(int $id) => (new AdController())->update($id));
 
