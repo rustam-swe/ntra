@@ -39,7 +39,7 @@ class AdController
         ]);
     }
 
-    public function store(): void
+    public function store(int|null $id = null): void
     {
         if ($_POST['title']
             && $_POST['description']
@@ -48,18 +48,32 @@ class AdController
             && $_POST['rooms']
             && $_POST['branch']
         ) {
-            $newAdsId = $this->ads->createAds(
-                $_POST['title'],
-                $_POST['description'],
-                (new Session())->getId(),
-                Status::ACTIVE,
-                (int) $_POST['branch'],
-                $_POST['address'],
-                (float) $_POST['price'],
-                (int) $_POST['rooms']
-            );
+            if ($id) {
+                $ad = $this->ads->updateAds(
+                    $id,
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                    (float) $_POST['price'],
+                    (int) $_POST['rooms']
+                );
+            } else {
+                $ad = $this->ads->createAds(
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                    (float) $_POST['price'],
+                    (int) $_POST['rooms']
+                );
+            }
 
-            if ($newAdsId) {
+            if ($ad && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
                 $imageHandler = new \App\Image();
                 $fileName     = $imageHandler->handleUpload();
 
@@ -67,14 +81,12 @@ class AdController
                     exit('Rasm yuklanmadi!');
                 }
 
-                $imageHandler->addImage((int) $newAdsId, $fileName);
-
-                header('Location: /admin/ads/create');
-
-                exit();
+                $imageHandler->addImage((int) $ad, $fileName);
             }
 
-            return;
+            header('Location: /admin/ads/create');
+
+            exit();
         }
 
         echo "Iltimos, barcha maydonlarni to'ldiring!";
@@ -83,8 +95,9 @@ class AdController
     public function update(int $id): void
     {
         loadView('dashboard/update-ad', [
+            'action'   => "/admin/ads/update/$id",
             'ad'       => $this->ads->getAd($id),
-            'branches' => (new Branch())->getBranches()
+            'branches' => (new Branch())->getBranches(),
         ]);
     }
 

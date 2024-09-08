@@ -10,9 +10,8 @@ Router::get('/', fn() => loadController('home'));
 Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
 Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth');
 Router::post('/admin/ads/store', fn() => (new AdController())->store());
-Router::post('/ads/update/25', fn() => dd([$_REQUEST, $_FILES]));
-
-Router::get('/ads/update/{id}', fn(int $id) => (new AdController())->update($id));
+Router::get('/admin/ads/update/{id}', fn(int $id) => (new AdController())->update($id));
+Router::patch('/admin/ads/update/{id}', fn(int $id) => (new AdController())->store($id));
 
 // Statuses
 Router::get('/status/create', fn() => loadView('dashboard/create-status'));

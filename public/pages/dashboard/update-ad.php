@@ -2,21 +2,10 @@
 
 declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
+
 /**
- * @var $ad
- * @var $branches
+ * @var $args
  */
-
-
-$uri = explode('/', $_SERVER['REQUEST_URI']);
-if (in_array('create', $uri)) {
-    $action = '/ads/create';
-    $method = 'POST';
-    $ad     = null;
-} else {
-    $action = "/ads/update/$ad->id";
-    $method = 'PATCH';
-}
 ?>
     <div class="page-wrapper toggled">
         <?php
@@ -45,11 +34,7 @@ if (in_array('create', $uri)) {
                     </div>
 
                     <?php
-                    loadComponent('ads-form', [
-                        'action'   => "/ads/update/$ad->id",
-                        'branches' => $branches,
-                        'ad'       => $ad,
-                    ]); ?>
+                    loadComponent('ads-form', $args); ?>
                     <!-- End Content -->
                 </div>
             </div><!--end container-->

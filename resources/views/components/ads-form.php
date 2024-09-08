@@ -39,8 +39,7 @@
                         <div class="form-icon relative mt-2">
                             <i class="mdi mdi-text-box-outline absolute top-2 start-4 text-green-600"></i>
                             <textarea name="description" id="description" class="form-input ps-11"
-                                      placeholder="E'lon bo'yicha ta'rif...">
-                                <?= $ad?->description ?>
+                                      placeholder="E'lon bo'yicha ta'rif..."><?= $ad?->description ?>
                             </textarea>
                         </div>
                     </div>
