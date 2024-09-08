@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Router;
 use Controllers\AdController;
+use Controllers\UserController;
 
 Router::get('/', fn() => loadController('home'));
 
@@ -26,6 +27,8 @@ Router::get('/admin/branches', fn() => (new \Controllers\BranchController())->in
 
 Router::get('/profile2', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
 Router::delete('/ads/delete/{id}', fn(int $id) => (new AdController())->delete($id));
+
+Router::get('/admin/users', fn() => (new UserController())->index(), 'auth');
 Router::errorResponse(404, 'Not Found');
 
 /**
