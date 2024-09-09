@@ -105,4 +105,11 @@ class AdController
     {
         $this->ads->deleteAds($id);
     }
+
+    public function search()
+    {
+        $searchPhrase = $_REQUEST['search_phrase'];
+        $ads          = (new Ads())->search($searchPhrase);
+        loadView('home', ['ads' => $ads]);
+    }
 }

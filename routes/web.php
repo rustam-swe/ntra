@@ -30,13 +30,8 @@ Router::get('/admin/branches', fn() => (new \Controllers\BranchController())->in
 Router::get('/admin/users', fn() => (new UserController())->index(), 'auth');
 Router::get('/admin/users/{id}', fn(int $id) => (new UserController())->show($id), 'auth');
 Router::get('/admin/users/update/{id}', fn(int $id) => (new UserController())->update($id), 'auth');
+
+Router::get('/search', fn() => (new AdController())->search());
+
 Router::errorResponse(404, 'Not Found');
 
-/**
- * Delete ad:
- * Requirements: ad_id
- *
- * Delete:
- * 1. From ads_image table
- * 2.
- */

@@ -55,7 +55,7 @@ class Ads
                          LEFT JOIN branch on ads.branch_id = branch.id
                   WHERE ads.id = :id";
 
-        $stmt  = $this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
@@ -64,12 +64,14 @@ class Ads
 
     public function getAds(): false|array
     {
-        $query = "SELECT *, ads.id AS id, ads.address AS address, ads_image.name AS image
+        $query = "SELECT *, 
+                        ads.id AS id,
+                        ads.address AS address,
+                        ads_image.name AS image
                   FROM ads
                     JOIN branch ON branch.id = ads.branch_id
                     LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
-         return $this->pdo->query($query)->fetchAll();
-
+        return $this->pdo->query($query)->fetchAll();
     }
 
     public function getUsersAds(int $userId): false|array
@@ -114,13 +116,6 @@ class Ads
 
     public function deleteAds(int $id): array|false
     {
-        /**
-         * Delete image
-         * 1. get image name: default.jpg
-         * 2. check if file exist
-         * 3. delete if exists
-         * 4.
-         */
         $image = $this->pdo->query("SELECT name FROM ads_image WHERE ads_id = $id")->fetch()->name;
         unlink("assets/images/ads/$image");
         $query = "DELETE FROM ads WHERE id = :id";
@@ -130,4 +125,22 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function search(string $searchPhrase): false|array
+    {
+        $searchPhrase = "%$searchPhrase%";
+        $query        = "SELECT *, 
+                                ads.id AS id,
+                                ads.address AS address,
+                                ads_image.name AS image
+                         FROM ads
+                             JOIN branch ON branch.id = ads.branch_id
+                             LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                         WHERE title LIKE :searchPhrase
+                             OR ads.description LIKE :searchPhrase";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':searchPhrase', $searchPhrase);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
