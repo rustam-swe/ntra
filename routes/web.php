@@ -13,6 +13,7 @@ Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth')
 Router::post('/admin/ads/store', fn() => (new AdController())->store());
 Router::get('/admin/ads/update/{id}', fn(int $id) => (new AdController())->update($id));
 Router::patch('/admin/ads/update/{id}', fn(int $id) => (new AdController())->store($id));
+Router::delete('/ads/delete/{id}', fn(int $id) => (new AdController())->delete($id));
 
 // Statuses
 Router::get('/status/create', fn() => loadView('dashboard/create-status'));
@@ -25,10 +26,10 @@ Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
 Router::get('/admin/ads', fn() => (new AdController())->index(), 'auth');
 Router::get('/admin/branches', fn() => (new \Controllers\BranchController())->index(), 'auth');
 
-Router::get('/profile2', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
-Router::delete('/ads/delete/{id}', fn(int $id) => (new AdController())->delete($id));
 
 Router::get('/admin/users', fn() => (new UserController())->index(), 'auth');
+Router::get('/admin/users/{id}', fn(int $id) => (new UserController())->show($id), 'auth');
+Router::get('/admin/users/update/{id}', fn(int $id) => (new UserController())->update($id), 'auth');
 Router::errorResponse(404, 'Not Found');
 
 /**

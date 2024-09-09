@@ -43,6 +43,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <th class="text-start font-semibold text-[15px] px-4 py-3">Email</th>
                                 <th class="text-start font-semibold text-[15px] px-4 py-3 min-w-[40px]">Position</th>
                                 <th class="text-end font-semibold text-[15px] px-4 py-3 min-w-[70px]">Gender</th>
+                                <th class="text-end font-semibold text-[15px] px-4 py-3 min-w-[70px]">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -50,7 +51,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                             foreach ($users as $user):?>
                                 <tr>
                                     <td class="text-start border-t border-gray-100 dark:border-gray-800 px-4 py-3">
-                                        <span class="text-slate-400"><?=$user->id?></span>
+                                        <span class="text-slate-400"><?= $user->id ?></span>
                                     </td>
                                     <th class="text-start border-t border-gray-100 dark:border-gray-800 px-4 py-3 font-semibold">
                                         <div class="relative md:shrink-0">
@@ -60,16 +61,23 @@ loadPartials(path: 'header', loadFromPublic: false);
                                         </div>
                                     </th>
                                     <th class="text-start border-t border-gray-100 dark:border-gray-800 px-4 py-3 font-semibold">
-                                        <?=$user->username?>
+                                            <?php echo "<a href='/admin/users/$user->id'>$user->username</a>";?>
                                     </th>
                                     <td class="text-start border-t border-gray-100 dark:border-gray-800 px-4 py-3">
-                                        <span class="text-slate-400"><?=$user->email?></span>
+                                        <span class="text-slate-400"><?= $user->email ?></span>
                                     </td>
                                     <th class="text-start border-t border-gray-100 dark:border-gray-800 px-4 py-3 font-semibold">
-                                        <?=$user->position?>
+                                        <?= $user->position ?>
                                     </th>
                                     <td class="text-end border-t border-gray-100 dark:border-gray-800 px-4 py-3">
-                                        <span class="bg-emerald-600/10 dark:bg-emerald-600/20 border border-emerald-600/10 dark:border-emerald-600/20 text-emerald-600 text-[15px] font-medium px-2.5 py-0.5 rounded h-5 ms-1"><?=$user->gender?></span>
+                                        <span class="bg-emerald-600/10 dark:bg-emerald-600/20 border border-emerald-600/10 dark:border-emerald-600/20 text-emerald-600 text-[15px] font-medium px-2.5 py-0.5 rounded h-5 ms-1"><?= $user->gender ?></span>
+                                    </td>
+                                    <td class="text-end border-t border-gray-100 dark:border-gray-800 px-4 py-3">
+                                        <a href="/admin/users/update/<?= $user->id ?>"
+                                           title="edit"
+                                           class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600">
+                                            <i class="mdi mdi-pencil text-[20px]"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             <?php

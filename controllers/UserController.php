@@ -15,10 +15,18 @@ class UserController
         loadView('/dashboard/users', ['users' => (new User())->getUsers()]);
     }
 
-    public function loadProfile(): void
+    public function show(int $id): void
     {
-        $ads = (new Ads())->getUsersAds((new Session())->getId());
-        loadView('dashboard/home', ['ads' => $ads]);
+        $user = (new User())->getUser($id);
+        $ads  = (new Ads())->getUsersAds((new Session())->getId());
+
+        loadView('profile', ['user' => $user, 'ads' => $ads], false);
+    }
+
+    public function update(int $id): void
+    {
+        $user = (new User())->getUser($id);
+        loadView('edit-profile', ['user' => $user], false);
     }
 
 }
