@@ -106,10 +106,18 @@ class AdController
         $this->ads->deleteAds($id);
     }
 
-    public function search()
+    public function search(): void
     {
+
         $searchPhrase = $_REQUEST['search_phrase'];
-        $ads          = (new Ads())->search($searchPhrase);
-        loadView('home', ['ads' => $ads]);
+        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
+        $searchMaxPrice = $_GET['max_price'] ? (int) $_GET['max_price'] : PHP_INT_MAX;
+
+
+        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
+        $branches = (new \App\Branch())->getBranches();
+        loadView('home', ['ads' => $ads, 'branches' => $branches]);
     }
+
 }

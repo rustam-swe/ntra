@@ -44,7 +44,7 @@
             <!-- Navigation Menu-->
             <ul class="navigation-menu justify-end nav-light">
                 <li class="has-submenu parent-parent-menu-item">
-                    <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
+                    <a href="/">E'lonlar</a><span class="menu-arrow"></span>
 
                     <ul class="submenu megamenu">
                         <li>
