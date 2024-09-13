@@ -32,12 +32,19 @@ class Branch
         return $stmt->execute();
     }
 
-    public function getBranch(int $id)
+    public function getBranch(int $id):false|array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE id = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt = $this->pdo->prepare("SELECT *, 
+                        ads.id AS id,
+                        ads.address AS address,
+                        ads_image.name AS image
+                  FROM ads
+                    JOIN branch ON branch.id = ads.branch_id
+                    LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                    WHERE ads.branch_id = :branch_id");
+        $stmt->bindParam(':branch_id', $id);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     public function getBranches(): false|array

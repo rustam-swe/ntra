@@ -5,9 +5,11 @@
         </div>
 
         <ul class="sidebar-menu border-t border-white/10" data-simplebar style="height: calc(100% - 70px);">
+            <?php if ((new \App\Session())->getRoleId() === 1):?>
             <li>
                 <a href="/admin"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Dashboard</a>
             </li>
+            <?php endif; ?>
 
             <li class="sidebar-dropdown">
                 <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i> E'lonlar</a>
@@ -19,10 +21,10 @@
                 </div>
             </li>
 
+            <?php if ((new \App\Session())->getRoleId() === 1):?>
             <li>
                 <a href="/admin/branches"><i class="mdi mdi-home-heart me-2"></i>Filiallar</a>
             </li>
-
             <li class="sidebar-dropdown">
                 <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i>Foydalanuvchilar</a>
                 <div class="sidebar-submenu">
@@ -33,6 +35,7 @@
                     </ul>
                 </div>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>

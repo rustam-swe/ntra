@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
+/**
+ * @var $ads
+ */
+//dd($ads);
 ?>
 <div class="page-wrapper toggled">
     <?php
@@ -31,20 +35,18 @@ loadPartials(path: 'header', loadFromPublic: false);
 
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-6">
                     <?php
-                    /**
-                     * @var $ads
-                     */
                     foreach ($ads as $ad):?>
                         <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                             <div class="relative">
                                 <img src="<?= \App\Image::show($ad->image) ?>" alt="">
-
+                                <?php if ((new \App\Session())->getId() === $ad->user_id):?>
                                 <div class="absolute top-4 end-4">
                                     <a href="/admin/ads/update/<?= $ad->id ?>"
                                        class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600">
                                         <i class="mdi mdi-pencil text-[20px]"></i>
                                     </a>
                                 </div>
+                                <?php endif; ?>
                             </div>
 
                             <div class="p-6">
@@ -56,17 +58,17 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-arrow-expand-all text-2xl me-2 text-green-600"></i>
-                                        <span>8000sqf</span>
+                                        <span><?= $ad->address?></span>
                                     </li>
 
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-bed text-2xl me-2 text-green-600"></i>
-                                        <span>4 Beds</span>
+                                        <span><?= $ad->rooms?>-Rooms</span>
                                     </li>
 
                                     <li class="flex items-center">
                                         <i class="mdi mdi-shower text-2xl me-2 text-green-600"></i>
-                                        <span>4 Baths</span>
+                                        <span><?= $ad->gender?></span>
                                     </li>
                                 </ul>
 

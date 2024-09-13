@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Router;
 use Controllers\AdController;
+use Controllers\AuthController;
+use Controllers\BranchController;
 use Controllers\UserController;
 
 Router::get('/', fn() => loadController('home'));
@@ -22,9 +24,12 @@ Router::post('/status/create', fn() => loadController('createStatus'));
 Router::get('/login', fn() => loadView('auth/login'), 'guest');
 Router::post('/login', fn() => (new \Controllers\AuthController())->login());
 
+Router::get('/logout', fn() => (new AuthController())->logout());
+
 Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
 Router::get('/admin/ads', fn() => (new AdController())->index(), 'auth');
 Router::get('/admin/branches', fn() => (new \Controllers\BranchController())->index(), 'auth');
+Router::get('/admin/branch/{id}', fn(int $id) => (new BranchController())->show($id));
 
 
 Router::get('/admin/users', fn() => (new UserController())->index(), 'auth');

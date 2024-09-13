@@ -4,7 +4,6 @@
  * @var string|null $ad
  * @var array $branches
  */
-
 ?>
 <div class="container relative">
     <div class="grid md:grid-cols-2 grid-cols-1 gap-6 mt-6">
@@ -32,6 +31,17 @@
                         <label for="title" class="font-medium">Sarlavha:</label>
                         <input name="title" id="title" type="text" class="form-input mt-2"
                                placeholder="Sarlavha" value="<?= $ad?->title ?>">
+                    </div>
+
+                    <div class="col-span-12">
+                        <label for="branch" class="font-medium">Jinsi:</label>
+                        <div class="form-icon relative mt-2">
+                            <select class="form-select form-input w-full py-2 h-10 bg-white dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 focus:border-gray-200 dark:border-gray-800 dark:focus:border-gray-700 focus:ring-0"
+                                    id="branch" name="gender">
+                                <option value="erkak">Erkak</option>
+                                <option value="ayol">Ayol</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="md:col-span-12 col-span-12">

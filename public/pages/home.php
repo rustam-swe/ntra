@@ -2,6 +2,10 @@
 
 loadPartials('header');
 loadPartials('navbar');
+/**
+ * @var $ads
+ */
+//dd($ads);
 ?>
     <!-- Start -->
     <section class="relative lg:py-24 py-16">
@@ -86,9 +90,6 @@ loadPartials('navbar');
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[30px]">
 
                 <?php
-                /**
-                 * @var $ads
-                 */
                 foreach ($ads as $ad):?>
                     <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                         <div class="relative">
@@ -111,17 +112,17 @@ loadPartials('navbar');
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span>8000sqf</span>
+                                    <span><?= $ad->address?></span>
                                 </li>
 
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <span><?= $ad->rooms?>-Rooms</span>
                                 </li>
 
                                 <li class="flex items-center">
                                     <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <span> <?= $ad->gender?></span>
                                 </li>
                             </ul>
 

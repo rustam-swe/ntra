@@ -53,7 +53,7 @@ class Auth
             }
 
             unset($_SESSION['message']['error']);
-            redirect('/profile2');
+            redirect('/');
         }
 
         $_SESSION['message']['error'] = "Wrong email or password";

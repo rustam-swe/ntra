@@ -174,7 +174,7 @@
                      onclick="event.stopPropagation();">
                     <ul class="py-2 text-start">
                         <li>
-                            <a href="profile.html"
+                            <a href="/"
                                class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
                                         class="mdi mdi-account-outline me-2"></i>Profile</a>
                         </li>

@@ -49,7 +49,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 
                                 <div class="p-6">
                                     <div class="pb-6">
-                                        <a href="#"
+                                        <a href="/admin/branch/<?= $branch->id ?>"
                                            class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $branch->name; ?></a>
                                     </div>
 
