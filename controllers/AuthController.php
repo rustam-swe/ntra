@@ -17,4 +17,9 @@ class AuthController
         (new Auth())->login($username, $password);
     }
 
+    public function logout(): void
+    {
+        session_destroy();
+        redirect('/');
+    }
 }
