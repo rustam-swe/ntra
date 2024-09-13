@@ -27,23 +27,7 @@ class Auth
                   WHERE id = $user->id";
 
 
-        // |public
-        // |- dashboard/profile
-        // |--- assets
-        // |--- pages
-        // |--- partials
-        // |- public
-        // |--- assets
-        // |--- pages
-        // |--- partials
-
-
-        // Execute query
         $userWithRoles = $this->pdo->query($query)->fetch();
-        if ($userWithRoles->role_id === Role::ADMIN) {
-            redirect('/admin');
-        }
-
 
         if ($userWithRoles) {
             $_SESSION['user'] = [
@@ -52,8 +36,12 @@ class Auth
                 'role'     => $userWithRoles->role_id
             ];
 
+            if ($userWithRoles->role_id === Role::ADMIN) {
+                redirect('/admin');
+            }elseif ($userWithRoles->role_id === Role::USER) {
+                redirect('/user');
+            }
             unset($_SESSION['message']['error']);
-            redirect('/profile2');
         }
 
         $_SESSION['message']['error'] = "Wrong email or password";
