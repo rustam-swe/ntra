@@ -32,7 +32,8 @@ loadPartials(path: 'header', loadFromPublic: false);
                                     <img src="/assets/images/ads/<?= $branch->image; ?>" alt="">
                                 <?php endif; ?>
 
-                                <?php if (!(new \App\Session())->getUser()): ?>
+                                <?php if ((new \App\Session())->getId() === $branch->user_id):?>
+
                                     <div class="absolute top-4 end-4">
                                         <a href="/admin/ads/update/<?= $branch->id ?>"
                                            class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-black dark:text-white">
