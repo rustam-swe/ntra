@@ -49,7 +49,8 @@ loadPartials('navbar');
                                             </div>
 
                                             <div>
-                                                <label for="buy-min-price" class="form-label font-medium text-slate-900 dark:text-white">
+                                                <label for="buy-min-price"
+                                                       class="form-label font-medium text-slate-900 dark:text-white">
                                                     Min Price :
                                                 </label>
                                                 <div class="filter-search-form relative filter-border mt-2">
@@ -61,7 +62,8 @@ loadPartials('navbar');
                                             </div>
 
                                             <div>
-                                                <label for="buy-max-price" class="form-label font-medium text-slate-900 dark:text-white">
+                                                <label for="buy-max-price"
+                                                       class="form-label font-medium text-slate-900 dark:text-white">
                                                     Max Price :
                                                 </label>
                                                 <div class="filter-search-form relative filter-border mt-2">
@@ -96,11 +98,13 @@ loadPartials('navbar');
                             <img src="<?php
                             echo \App\Image::show($ad->image); ?>" alt="">
 
+                            <?php if ((new \App\Session())->getUser()): ?>
                             <div class="absolute top-4 end-4">
                                 <a href="javascript:void(0)"
                                    class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
                                             class="mdi mdi-heart text-[20px]"></i></a>
                             </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="p-6">
@@ -112,17 +116,17 @@ loadPartials('navbar');
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span><?= $ad->address?></span>
+                                    <span><?= $ad->address ?></span>
                                 </li>
 
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span><?= $ad->rooms?>-Rooms</span>
+                                    <span><?= $ad->rooms ?>-Rooms</span>
                                 </li>
 
                                 <li class="flex items-center">
                                     <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span> <?= $ad->gender?></span>
+                                    <span> <?= $ad->gender ?></span>
                                 </li>
                             </ul>
 
