@@ -91,19 +91,20 @@ loadPartials('navbar');
                         </div>
                     </div>
 
-                    <?php if ((new \App\Session())->getId() === $ad->user_id):?>
-                    <div class="mt-12 text-center">
-                        <div class="mt-6">
-                            <form action="/ads/delete/<?= $ad->id ?>" method="post">
-                                <input type="hidden" name="_method" value="delete">
-                                <button type="submit"
-                                        class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md">
-                                    <i class="uil uil-trash align-middle me-2"></i>O'chirish
-                                </button>
-                            </form>
+                    <?php if ((new \App\Session())->getRoleId() === 1 || (new \App\Session())->getId() === $ad->user_id): ?>
+                        <div class="mt-12 text-center">
+                            <div class="mt-6">
+                                <form action="/ads/delete/<?= $ad->id ?>" method="post">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <button type="submit"
+                                            class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md">
+                                        <i class="uil uil-trash align-middle me-2"></i>O'chirish
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
+
                 </div>
             </div>
         </div>
