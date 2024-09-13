@@ -122,14 +122,70 @@
 <!-- Back to top -->
 
 <!-- JAVASCRIPTS -->
-<script src="../assets/libs/tiny-slider/min/tiny-slider.js"></script>
-<script src="../assets/libs/tobii/js/tobii.min.js"></script>
-<script src="../assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-<script src="../assets/libs/swiper/js/swiper.min.js"></script>
-<script src="../assets/libs/feather-icons/feather.min.js"></script>
-<script src="../assets/js/plugins.init.js"></script>
-<script src="../assets/js/app.js"></script>
+<script src="/assets/libs/tiny-slider/min/tiny-slider.js"></script>
+<script src="/assets/libs/tobii/js/tobii.min.js"></script>
+<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="/assets/libs/swiper/js/swiper.min.js"></script>
+<script src="/assets/libs/feather-icons/feather.min.js"></script>
+<script src="/assets/js/plugins.init.js"></script>
+<script src="/assets/js/app.js"></script>
+<script>
+    function handleChange(event) {
+        const fileUploader = document.querySelector('#input-file');
+        const getFile = fileUploader.files;
 
-<!-- JAVASCRIPTS -->
-</body>
-</html>
+        if (getFile.length !== 0) {
+            const uploadedFile = getFile[0];
+            readFile(uploadedFile);
+        }
+    }
+
+    function readFile(uploadedFile) {
+        if (uploadedFile) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const parent = document.querySelector('.preview-box');
+                parent.innerHTML = `<img class="preview-content max-h-60" src="${reader.result}" alt="Image Preview"/>`;
+            };
+            reader.readAsDataURL(uploadedFile);
+        }
+    }
+
+    function initializeFormInteraction() {
+        const formElements = document.querySelectorAll('input, select, textarea');
+
+        formElements.forEach((element) => {
+            element.addEventListener('mouseover', () => {
+                element.focus();
+            });
+
+            element.addEventListener('mouseout', () => {
+                element.blur();
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize only if slider element is present and hasn't been initialized before
+        const sliderElement = document.querySelector('.tiny-one-item');
+        if (sliderElement && !sliderElement.dataset.initialized) {
+            sliderElement.dataset.initialized = true;  // Mark as initialized
+            tns({
+                container: sliderElement,
+                items: 1,
+                slideBy: 'page',
+                autoplay: true,
+                autoplayButtonOutput: false,
+                controls: false,
+                nav: true,
+                navPosition: 'bottom',
+                speed: 500,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true
+            });
+        }
+    });
+
+
+</script>
+

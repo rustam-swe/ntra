@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="../../public/assets/images/favicon.ico" />
 
     <!-- Css -->
     <link href="/assets/libs/tiny-slider/tiny-slider.css" rel="stylesheet">

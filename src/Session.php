@@ -2,47 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Shohjahon\RentSrc;
 
 class Session
 {
-    public static function start(): void
+    public function getSession(): array
     {
-        session_start();
+        return $_SESSION;
     }
-    public function getUser()
+    public function checkSession(): bool
     {
-        if (isset($_SESSION['user'])) {
-            return $_SESSION['user'];
+        if (isset($_SESSION['username'])) {
+            return true;
         }
-
-        return null;
-    }
-
-    public function getName()
-    {
-        if (isset($this->getUser()['username'])) {
-            return $this->getUser()['username'];
-        }
-
-        return '';
-    }
-
-    public function getId()
-    {
-        if (isset($this->getUser()['id'])) {
-            return $this->getUser()['id'];
-        }
-
-        return '';
-    }
-
-    public function getRoleId()
-    {
-        if (isset($this->getUser()['role_id'])) {
-            return $this->getUser()['role_id'];
-        }
-
-        return '';
+        return false;
     }
 }

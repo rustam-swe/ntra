@@ -1,10 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App;
-
+namespace Shohjahon\RentSrc;
 use PDO;
+use Shohjahon\RentSrc\enum\Roles;
 
 class Auth
 {
@@ -14,49 +12,36 @@ class Auth
     {
         $this->pdo = DB::connect();
     }
-
-    public function login(string $username, string $password)
+    public function checkUserLogin(string $username, string $password): bool
     {
-        // Get user or fail
-        $user = (new User())->getByUsername($username, $password);
+        $user = (new User())->getByUser($username);
 
-        // Get users role
         $query = "SELECT users.*, user_roles.role_id
                   FROM users
-                      JOIN user_roles ON users.id = user_roles.user_id
-                  WHERE id = $user->id";
-
-
-        // |public
-        // |- dashboard/profile
-        // |--- assets
-        // |--- pages
-        // |--- partials
-        // |- public
-        // |--- assets
-        // |--- pages
-        // |--- partials
-
-
-        // Execute query
-        $userWithRoles = $this->pdo->query($query)->fetch();
-
-        if ($userWithRoles) {
-            $_SESSION['user'] = [
-                'username' => $userWithRoles->username,
-                'id'       => $userWithRoles->id,
-                'role'     => $userWithRoles->role_id
-            ];
-
-            if ($userWithRoles->role_id === Role::ADMIN) {
+                    JOIN user_roles ON users.id = user_roles.user_id
+                  WHERE users.id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $user['id']]);
+        $userWithRoles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['password'] = $user['password'];
+            $_SESSION['id'] = $user['id'];
+            if ($userWithRoles[0]['role_id'] == Roles::ADMIN->value) {
+                $_SESSION['role_id'] = $userWithRoles[0]['role_id'];
                 redirect('/admin');
             }
-
-            unset($_SESSION['message']['error']);
-            redirect('/profile2');
+            return true;
         }
+        return false;
 
-        $_SESSION['message']['error'] = "Wrong email or password";
-        redirect('/login');
+    }
+    public function checkUserRegister(string $phone)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE phone = :phone");
+        $stmt->bindParam(':phone', $phone);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
