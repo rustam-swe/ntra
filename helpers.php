@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Ads;
-
-function dd($args)
+use Shohjahon\RentSrc\Ads;
+use JetBrains\PhpStorm\NoReturn;
+#[NoReturn] function dd($args): void
 {
     echo "<pre>";
     print_r($args);
@@ -19,15 +19,15 @@ function getAds(): false|array
 
 function basePath(string $path): string
 {
-    return __DIR__.$path;
+    return __DIR__ . $path;
 }
 
 function loadView(string $path, array|null $args = null, bool $loadFromPublic = true): void
 {
     if ($loadFromPublic) {
-        $file = "/public/pages/$path.php";
+        $file = "/resources/view/pages/$path.php";
     } else {
-        $file = "/resources/views/pages/$path.php";
+        $file = "/public/pages/$path.php";
     }
 
     $filePath = basePath($file);
@@ -52,38 +52,25 @@ function loadPartials(string $path, array|null $args = null, bool $loadFromPubli
     if ($loadFromPublic) {
         $file = "/public/partials/$path.php";
     } else {
-        $file = "/resources/views/partials/$path.php";
+        $file = "/resources/view/partials/$path.php";
     }
 
     require basePath($file);
 }
-
-function loadComponent(string $path, array|null $args = null): void
+function assets(string $path): string
 {
-    if (is_array($args)) {
-        extract($args);
+    $filePath = basePath("/resources/assets/$path");
+
+    if (!file_exists($filePath)) {
+        echo "Required assets/file not found: $filePath";
+        return '';
     }
 
-    $file = basePath("/resources/views/components/$path.php");
-
-    if (!file_exists($file)) {
-        echo "Required component not found: $file";
-        return;
-    }
-
-    require $file;
+    return $filePath;
 }
 
-function loadController(string $path, array|null $args = null): void
+#[NoReturn] function redirect(string $url): void
 {
-    if (is_array($args)) {
-        extract($args);
-    }
-    require basePath('/controllers/'.$path.'.php');
-}
-
-function redirect(string $url): void
-{
-    header("Location: $url");
+    header('location: ' . $url);
     exit();
 }

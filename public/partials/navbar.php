@@ -43,29 +43,9 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu justify-end nav-light">
-                <li class="has-submenu parent-parent-menu-item">
-                    <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
-
-                    <ul class="submenu megamenu">
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="/" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="../../public/assets/images/ads/main/homePage.png" class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero One</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li><a href="/ads/create" class="sub-menu-item">Create_ads</a></li>
-                <li><a href="/dashboard" class="sub-menu-item">Buy</a></li>
-
-                <li><a href="sell.html" class="sub-menu-item">Sell</a></li>
+                <li><a href="/" class="sub-menu-item">E'lonlar</a></li>
+                <li><a href="/admin/branch" class="sub-menu-item">Filiallar</a></li>
+                <li><a href="/ads/create" class="sub-menu-item">E'lon qoshish</a></li>
 
                 <li class="has-submenu parent-parent-menu-item">
                     <a href="javascript:void(0)">Listing</a><span class="menu-arrow"></span>

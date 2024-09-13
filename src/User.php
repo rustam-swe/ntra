@@ -28,6 +28,13 @@ class User
         $stmt->bindParam(':password', $password);
         $stmt->execute();
 
+        $id = $this->pdo->lastInsertId();
+
+        $query = "SELECT * FROM users WHERE id = :id";
+        $stmt  = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 

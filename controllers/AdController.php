@@ -1,123 +1,278 @@
 <?php
+//
+//declare(strict_types=1);
+//
+//namespace Shohjahon\RentController;
+//
+//use JetBrains\PhpStorm\NoReturn;
+//use Shohjahon\RentSrc\Ads;
+//use Shohjahon\RentSrc\Image;
+//
+//class AdController
+//{
+//    public function showOneAd(int $id, string $create = null): void
+//    {
+//        /**
+//         * @var $id
+//         */
+//
+//        $ad = (new Ads())->getAd($id);
+//
+//        if ($create === null) {
+//            loadView('single-ad', ['ad' => $ad]);
+//            exit();
+//        }
+//        loadView('dashboard/create-ad', ['ad' => $ad]);
+//        exit();
+//    }
+//
+//    public function checkAdInfo()
+//    {
+//        $requiredFields = ['title', 'description', 'price', 'address', 'rooms'];
+//
+//        foreach ($requiredFields as $field) {
+//            if (empty($_POST[$field])) {
+//                exit("Iltimos, barcha maydonlarni to'ldiring!");
+//            }
+//        }
+//        $ad = [
+//            'title' => $_POST['title'],
+//            'description' => $_POST['description'],
+//            'price' => (float)$_POST['price'],
+//            'branch' => (int)$_POST['branch'],
+//            'address' => $_POST['address'],
+//            'rooms' => (int)$_POST['rooms'],
+//        ];
+//
+//        $ads = [];
+//
+//        foreach ($ad as $key => $value) {
+//            $ads[$key] = $value;
+//        }
+//
+//        return $ads;
+//    }
+//
+//    public function createAdInfo(): void
+//    {
+//        $ad = $this->checkAdInfo();
+//
+//        $newAdsId = (new Ads())->createAds(
+//            $ad['title'],
+//            $ad['description'],
+//            6,
+//            1,
+//            1,
+//            $ad['address'],
+//            $ad['price'],
+//            $ad['rooms']
+//        );
+//
+//        if ($newAdsId) {
+//            $this->checkAdImage((int)$newAdsId);
+//        }
+//    }
+//
+//    #[NoReturn] private function checkAdImage(int $newAdsId): void
+//    {
+//        $imageHandler = new Image();
+//        $fileName = $imageHandler->handleUpload();
+//
+//        if (!$fileName) {
+//            exit('Rasm yuklanmadi!');
+//        }
+//
+//        $imageHandler->addImage($newAdsId, $fileName);
+//
+//        redirect('/');
+//    }
+//
+//    #[NoReturn] public function updateAdImage(int $ads_id, string $image): void
+//    {
+//        $imageHandler = new Image();
+//        $fileName = $imageHandler->handleUpload();
+//
+//        if (!$fileName) {
+//            exit('Rasm yuklanmadi!');
+//        }
+//
+//        $file = basePath("/public/assets/images/ads/$image");
+//        if (file_exists($file)) {
+//            if (!unlink($file)) {
+//                echo "Faylni o'chirishda xatolik yuz berdi.";
+//            }
+//        } else {
+//            echo "Fayl topilmadi.";
+//        }
+//
+//        $imageHandler->updateImage($ads_id, $fileName);
+//
+//        redirect('/profile');
+//    }
+//
+//    public function updateAdInfo(int $id, string $image): void
+//    {
+//        $ad = $this->checkAdInfo();
+//
+//        $updateAd = (new Ads())->updateAds(
+//            $ad['title'],
+//            $ad['description'],
+//            6,
+//            1,
+//            1,
+//            $ad['address'],
+//            $ad['price'],
+//            $ad['rooms'],
+//            $id
+//        );
+//
+//        if ($updateAd) {
+//            $this->updateAdImage($id, $image);
+//        }
+//    }
+//
+//    public function deleteAd(int $id, string $image): void
+//    {
+//        $file = basePath("/public/assets/images/ads/$image");
+//        if (file_exists($file)) {
+//            if (unlink($file)) {
+//                (new Ads())->deleteAds($id);
+//            } else {
+//                echo "Faylni o'chirishda xatolik yuz berdi.";
+//            }
+//        } else {
+//            echo "Fayl topilmadi.";
+//        }
+//    }
+//}
+
 
 declare(strict_types=1);
 
-namespace Controllers;
+namespace Shohjahon\RentController;
 
-use App\Ads;
-use App\Branch;
-use App\Session;
-use App\Status;
+use JetBrains\PhpStorm\NoReturn;
+use Shohjahon\RentSrc\Ads;
+use Shohjahon\RentSrc\Image;
+use Shohjahon\RentSrc\Status;
 
 class AdController
 {
-    public Ads $ads;
-
-    public function __construct()
+    #[NoReturn] public function showOneAd(int $id, ?string $create = null): void
     {
-        $this->ads = new Ads();
+        $view = $create === null ? 'single-ad' : 'dashboard/create-ad';
+        loadView($view, ['ad' => (new Ads())->getAd($id)]);
+        exit();
     }
 
-    public function index(): void
+    private function validateAdInfo(): array
     {
-        $ads = $this->ads->getAds();
-        loadView('dashboard/ads', ['ads' => $ads]);
-    }
+        $requiredFields = ['title', 'description', 'user', 'branch', 'price', 'address', 'rooms'];
+        $adInfo = [];
 
-    public function show(int $id): void
-    {
-        $ad = $this->ads->getAd($id);
-        loadView('single-ad', ['ad' => $ad]);
-    }
-
-    public function create(): void
-    {
-        loadView('/dashboard/create-ad', [
-            'action'   => "/admin/ads/store",
-            'ad'       => null,
-            'branches' => (new Branch())->getBranches()
-        ]);
-    }
-
-    public function store(int|null $id = null): void
-    {
-        if ($_POST['title']
-            && $_POST['description']
-            && $_POST['price']
-            && $_POST['address']
-            && $_POST['rooms']
-            && $_POST['branch']
-        ) {
-            if ($id) {
-                $ad = $this->ads->updateAds(
-                    $id,
-                    $_POST['title'],
-                    trim($_POST['description']),
-                    (new Session())->getId(),
-                    Status::ACTIVE,
-                    (int) $_POST['branch'],
-                    $_POST['address'],
-                    (float) $_POST['price'],
-                    (int) $_POST['rooms']
-                );
-            } else {
-                $ad = $this->ads->createAds(
-                    $_POST['title'],
-                    trim($_POST['description']),
-                    (new Session())->getId(),
-                    Status::ACTIVE,
-                    (int) $_POST['branch'],
-                    $_POST['address'],
-                    (float) $_POST['price'],
-                    (int) $_POST['rooms']
-                );
+        foreach ($requiredFields as $field) {
+            if (empty($_POST[$field])) {
+                exit("Iltimos, barcha maydonlarni to'ldiring!");
             }
-
-            if ($ad && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
-                $imageHandler = new \App\Image();
-                $fileName     = $imageHandler->handleUpload();
-
-                if (!$fileName) {
-                    exit('Rasm yuklanmadi!');
-                }
-
-                $imageHandler->addImage((int) $ad, $fileName);
-            }
-
-            header('Location: /admin/ads/create');
-
-            exit();
+            $adInfo[$field] = $_POST[$field];
         }
 
-        echo "Iltimos, barcha maydonlarni to'ldiring!";
+        return $adInfo;
     }
 
-    public function update(int $id): void
+    public function createAdInfo(): void
     {
-        loadView('dashboard/update-ad', [
-            'action'   => "/admin/ads/update/$id",
-            'ad'       => $this->ads->getAd($id),
-            'branches' => (new Branch())->getBranches(),
-        ]);
+        $ad = $this->validateAdInfo();
+
+        $status_id = (new Status())->createStatus('active');
+
+        $newAdsId = (new Ads())->createAds(
+            $ad['title'],
+            $ad['description'],
+            (int)$ad['user'],
+            (int)$status_id,
+            (int)$ad['branch'],
+            $ad['address'],
+            (float)$ad['price'],
+            (int)$ad['rooms']
+        );
+
+        if ($newAdsId) {
+            $this->handleImageUpload(adId: (int)$newAdsId, upsert: 'create');
+        }
     }
 
-    public function delete(int $id): void
+    #[NoReturn] function handleImageUpload(int $adId, string $upsert, ?string $oldImage = null, $remove = null, string $branch = null): void
     {
-        $this->ads->deleteAds($id);
+        $imageHandler = new Image();
+        $fileName = $imageHandler->handleUpload($oldImage, $branch);
+
+        if (!$fileName) {
+            exit('Rasm yuklanmadi!');
+        }
+        if ($oldImage) {
+            $this->deleteImageFile($oldImage, $branch);
+        }
+        if ($upsert === 'create') {
+            $imageHandler->addImage($adId, $fileName);
+            redirect('/');
+        }
+        if ($remove === 'removeImage') {
+            $imageHandler->updateImage($adId, $fileName);
+            redirect("/update/ads/{$adId}");
+        }
+        if ($upsert === 'branchUpdate') {
+            $imageHandler->updateBranchImage($adId, $fileName);
+            redirect("/update/branch/{$adId}");
+        }
+        $imageHandler->updateImage($adId, $fileName);
+        redirect('/profile');
+
     }
 
-    public function search(): void
+    #[NoReturn] public function deleteImageFile(string $image, string $perfect = null): void
     {
-
-        $searchPhrase = $_REQUEST['search_phrase'];
-        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
-        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
-        $searchMaxPrice = $_GET['max_price'] ? (int) $_GET['max_price'] : PHP_INT_MAX;
-
-
-        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
-        $branches = (new \App\Branch())->getBranches();
-        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+        if ($perfect === 'branch') {
+            $file = basePath("/public/assets/images/ads/branches/$image");
+        } else {
+            $file = basePath("/public/assets/images/ads/$image");
+        }
+        if (file_exists($file) && !unlink($file)) {
+            exit("Faylni o'chirishda xatolik yuz berdi.");
+        }
+        if ($perfect === 'delete') {
+            $ads_id = (new Image())->deleteImage($image);
+            redirect("/ads/update/$ads_id");
+        }
     }
 
+    public function updateAdInfo(int $id, string $image): void
+    {
+        $ad = $this->validateAdInfo();
+
+        (new Status())->updateStatus((int)$_POST['status_id'], $_POST['status']);
+
+        $updateAd = (new Ads())->updateAds(
+            $ad['title'],
+            $ad['description'],
+            (int)$ad['user'],
+            (int) $_POST['status_id'],
+            (int)$ad['branch'],
+            $ad['address'],
+            (float)$ad['price'],
+            (int)$ad['rooms'],
+            $id
+        );
+
+        if ($updateAd) {
+            $this->handleImageUpload($id, 'update', $image);
+        }
+    }
+
+    #[NoReturn] public function deleteAd(int $id, string $image, int $status_id): void
+    {
+        $this->deleteImageFile($image);
+        (new Status())->deleteStatus($status_id);
+        (new Ads())->deleteAds($id);
+    }
 }

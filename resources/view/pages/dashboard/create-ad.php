@@ -306,6 +306,17 @@ $branches = (new Branch())->getBranch();
                                 <div class="grid grid-cols-12 gap-5">
                                     <div class="col-span-4 col-span-12 mt-4">
                                         <label for="gender" class="font-medium">Branch:</label>
+                                        <select name="gender" id="gender" class="form-select mt-2 w-full border border-blue-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300">
+                                                <option value="male">Erkak</option>
+                                                <option value="female">Ayol</option>
+                                        </select>
+                                        <br>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-12 gap-5">
+                                    <div class="col-span-4 col-span-12 mt-4">
+                                        <label for="gender" class="font-medium">Branch:</label>
                                         <select name="branch" id="gender" class="form-select mt-2 w-full border border-blue-500 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300">
                                             <?php foreach ($branches as $branch): ?>
                                                 <option value="<?= $branch->id; ?>"><?= $branch->name ?></option>

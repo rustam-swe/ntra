@@ -97,18 +97,46 @@ class Ads
         redirect('/');
     }
 
-    public function searchWithAds(string|null $phrase = null, int|null $branch = null, int|null $min = 0, int|null $max = PHP_INT_MAX): false|array
+    public function superSearch(string $searchPhrase, int|null $searchBranch = null, int $searchMinPrice = 0,
+        int      $searchMaxPrice = PHP_INT_MAX
+    ): false|array
     {
-//        if ($min AND $max)
+        $query = "SELECT *, 
+                        ads.id AS id,
+                        ads.address AS address,
+                        ads_image.name AS image
+                 FROM ads
+                     JOIN branch ON branch.id = ads.branch_id
+                     LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                WHERE (title LIKE :searchPhrase
+                OR ads.description LIKE :searchPhrase) 
+                AND price BETWEEN :minPrice AND :maxPrice";
+        $params = [
+            ':searchPhrase' => "%$searchPhrase%",
+            ':minPrice' => $searchMinPrice,
+            ':maxPrice' => $searchMaxPrice
+        ];
 
-        $query = "SELECT * FROM ads WHERE title LIKE :phrase OR description LIKE :phrase AND branch_id = :branch AND BETWEEN :min AND :max";
+        if ($searchBranch) {
+            $query .= " AND branch_id = :searchBranch";
+            $params[':searchBranch'] = $searchBranch;
+        }
+
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':min', $min);
-        $stmt->bindParam(':max', $max);
-        $stmt->bindParam(':phrase', $phrase);
-        $stmt->bindParam(':branch', $branch);
-        $stmt->execute();
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
 
+    public function getAdByBranch(int $branchId): false|array
+    {
+        $query = "SELECT *, ads.id AS id, ads.address AS address, ads_image.name AS image
+                  FROM ads 
+                      JOIN branch ON branch.id = ads.branch_id
+                      LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                  WHERE ads.branch_id = :branchId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':branchId', $branchId);
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 }

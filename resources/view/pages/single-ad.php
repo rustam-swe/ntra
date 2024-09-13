@@ -125,12 +125,14 @@ loadPartials('navbar');
                                         class="uil uil-phone align-middle me-2"></i> Contact us</a>
                         </div>
                         <?php if ((new \Shohjahon\RentSrc\Session())->checkSession()): ?>
-                        <div class="mt-6">
-                            <a href="/delete?id=<?= $ad->id; ?>&image=<?= $ad->image; ?>&status=<?= $ad->status_id; ?>"
-                               class="btn bg-transparent hover:bg-red-600 border border-red-600 text-red-600 hover:text-white rounded-md">
-                                Delete Ad
-                            </a>
-                        </div>
+                            <?php if ((new \Shohjahon\RentSrc\Session())->getSession()['id'] === $ad->user_id): ?>
+                                <div class="mt-6">
+                                    <a href="/delete?id=<?= $ad->id; ?>&image=<?= $ad->image; ?>&status=<?= $ad->status_id; ?>"
+                                       class="btn bg-transparent hover:bg-red-600 border border-red-600 text-red-600 hover:text-white rounded-md">
+                                        Delete Ad
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 </div>

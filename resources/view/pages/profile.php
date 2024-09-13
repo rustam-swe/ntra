@@ -2,9 +2,7 @@
 <div class="page-wrapper toggled">
 <!-- sidebar-wrapper  -->
 <?php
-    if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])) {
-        loadPartials(path: 'navbar', loadFromPublic: false);
-    }
+loadPartials(path: 'navbar', loadFromPublic: false);
 ?>
 <!-- Start Page Content -->
 <main class="page-content bg-gray-50 dark:bg-slate-800">
@@ -23,11 +21,9 @@
             <!-- Logo -->
 
             <!-- show or close sidebar -->
-            <?php if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])):?>
                 <a id="close-sidebar" class="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-md" href="javascript:void(0)">
                     <i data-feather="menu" class="size-4"></i>
                 </a>
-            <?php endif; ?>
             <!-- show or close sidebar -->
 
             <!-- Searchbar -->

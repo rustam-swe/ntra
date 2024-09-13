@@ -5,9 +5,11 @@
         </div>
 
         <ul class="sidebar-menu border-t border-white/10" data-simplebar style="height: calc(100% - 70px);">
-            <li>
-                <a href="/admin"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Dashboard (Asosiy)</a>
-            </li>
+            <?php if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])): ?>
+                <li>
+                    <a href="/admin"><i class="mdi mdi-chart-bell-curve-cumulative me-2"></i>Dashboard (Asosiy)</a>
+                </li>
+            <?php endif; ?>
 
             <li class="sidebar-dropdown">
                 <a href="javascript:void(0)"><i class="mdi mdi-home-city me-2"></i>E'lonlar (Announcements)</a>
@@ -18,7 +20,7 @@
                     </ul>
                 </div>
             </li>
-
+            <?php if (isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])): ?>
             <li class="sidebar-dropdown">
                 <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i>Filiallar (Branches)</a>
                 <div class="sidebar-submenu">
@@ -28,6 +30,7 @@
                     </ul>
                 </div>
             </li>
+            <?php endif; ?>
 
             <li class="sidebar-dropdown">
                 <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i>Foydalanuvchilar (Users)</a>

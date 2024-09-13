@@ -208,18 +208,18 @@ loadPartials(path: 'header', loadFromPublic: false);
                                         <div class="p-6">
                                             <div class="pb-6">
                                                 <a href="/ads/<?= $ad->id ?>"
-                                                   class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $ad->title ?></a>
+                                                   class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><b>Title</b><br><?= $ad->title ?></a>
                                             </div>
 
                                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                                 <li class="flex items-center me-4">
-                                                    <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                                    <span>8000sqf</span>
+                                                    <i class="mdi mdi-compress-arrows text-2xl me-2 text-green-600"></i>
+                                                    <span><?= $ad->address ?></span>
                                                 </li>
 
                                                 <li class="flex items-center me-4">
-                                                    <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                                    <span>4 Beds</span>
+                                                    <i class="mdi mdi-bed-double text-2xl me-2 text-green-600"></i>
+                                                    <span><?= $ad->rooms ?></span>
                                                 </li>
 
                                                 <li class="flex items-center">

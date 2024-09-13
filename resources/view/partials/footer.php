@@ -43,13 +43,6 @@
 <script src="/dashboard/assets/libs/simplebar/simplebar.min.js"></script>
 <script src="/dashboard/assets/js/plugins.init.js"></script>
 <script src="/dashboard/assets/js/app.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if (!isset((new \Shohjahon\RentSrc\Session())->getSession()['role_id'])): ?>
-        document.querySelector('.page-wrapper').classList.remove('toggled');
-        <?php endif; ?>
-    });
-</script>
 <!-- JAVASCRIPTS -->
 </body>
 </html>
