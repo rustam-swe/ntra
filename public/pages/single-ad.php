@@ -18,50 +18,31 @@ loadPartials('navbar');
                 <div class="grid grid-cols-1 relative">
                     <div class="tiny-one-item">
                         <div class="tiny-slide">
-                            <img src="<?=$ad->image ?>"
-                                 class="rounded-md shadow dark:shadow-gray-700" alt="">
-                        </div>
-
-                        <div class="tiny-slide">
-                            <img src="assets/images/property/single/2.jpg"
-                                 class="rounded-md shadow dark:shadow-gray-700" alt="">
-                        </div>
-
-                        <div class="tiny-slide">
-                            <img src="assets/images/property/single/3.jpg"
-                                 class="rounded-md shadow dark:shadow-gray-700" alt="">
-                        </div>
-
-                        <div class="tiny-slide">
-                            <img src="assets/images/property/single/4.jpg"
-                                 class="rounded-md shadow dark:shadow-gray-700" alt="">
-                        </div>
-
-                        <div class="tiny-slide">
-                            <img src="assets/images/property/single/5.jpg"
+                            <img src="<?= \App\Image::show($ad->image) ?>"
                                  class="rounded-md shadow dark:shadow-gray-700" alt="">
                         </div>
                     </div>
                 </div>
 
                 <h4 class="text-2xl font-medium mt-6 mb-3"><?= $ad->title; ?></h4>
-                <span class="text-slate-400 flex items-center"><i data-feather="map-pin"
-                                                                  class="size-5 me-2"></i><?= $ad->address; ?></span>
+                <span class="text-slate-400 flex items-center">
+                    <i data-feather="map-pin" class="size-5 me-2"></i><?= $ad->address; ?>
+                </span>
 
                 <ul class="py-6 flex items-center list-none">
                     <li class="flex items-center lg:me-6 me-4">
                         <i class="uil uil-compress-arrows lg:text-3xl text-2xl me-2 text-green-600"></i>
-                        <span class="lg:text-xl">8000sqf</span>
+                        <span class="lg:text-xl"><?= $ad->branch_name ?></span>
                     </li>
 
                     <li class="flex items-center lg:me-6 me-4">
                         <i class="uil uil-bed-double lg:text-3xl text-2xl me-2 text-green-600"></i>
-                        <span class="lg:text-xl"><?= $ad->rooms; ?> xona</span>
+                        <span class="lg:text-xl"><?= $ad->gender; ?> xona</span>
                     </li>
 
                     <li class="flex items-center">
                         <i class="uil uil-bath lg:text-3xl text-2xl me-2 text-green-600"></i>
-                        <span class="lg:text-xl">4 Baths</span>
+                        <span class="lg:text-xl">Rooms <?= $ad->rooms ?></span>
                     </li>
                 </ul>
 
@@ -86,11 +67,6 @@ loadPartials('navbar');
                             </div>
 
                             <ul class="list-none mt-4">
-                                <li class="flex justify-between items-center">
-                                    <span class="text-slate-400 text-sm">Days on Hously</span>
-                                    <span class="font-medium text-sm">124 Days</span>
-                                </li>
-
                                 <li class="flex justify-between items-center mt-2">
                                     <span class="text-slate-400 text-sm">Filial:</span>
                                     <span class="font-medium text-sm"><?= $ad->branch_id; ?></span>
@@ -116,15 +92,12 @@ loadPartials('navbar');
                     </div>
 
                     <div class="mt-12 text-center">
-                        <h3 class="mb-6 text-xl leading-normal font-medium text-black dark:text-white">Have Question ?
-                            Get in touch!</h3>
-
                         <div class="mt-6">
                             <form action="/ads/delete/<?= $ad->id ?>" method="post">
                                 <input type="hidden" name="_method" value="delete">
                                 <button type="submit"
                                         class="btn bg-transparent hover:bg-green-600 border border-green-600 text-green-600 hover:text-white rounded-md">
-                                    <i class="uil uil-phone align-middle me-2"></i>Delete
+                                    <i class="uil uil-trash align-middle me-2"></i>O'chirish
                                 </button>
                             </form>
                         </div>
