@@ -51,4 +51,13 @@ class Branch
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function getBranchName(string $name)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE name = :name");
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetch();
+
+    }
 }
