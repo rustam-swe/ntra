@@ -4,7 +4,7 @@ declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
 
 /**
- * @var array $args
+ * @var $args
  */
 ?>
     <div class="page-wrapper toggled">
@@ -42,7 +42,7 @@ loadPartials(path: 'header', loadFromPublic: false);
             <?php
             loadPartials(path: 'dashboard-footer', loadFromPublic: false); ?>
         </main>
-        <!--End page-content -->
+        <!--End page-content" -->
     </div>
 
 <?php

@@ -60,6 +60,7 @@ loadPartials('header'); ?>
         <a href="" class="back-button btn btn-icon bg-green-600 hover:bg-green-700 text-white rounded-full"><i data-feather="arrow-left" class="size-4"></i></a>
     </div>
 
+
     <!-- Switcher -->
     <div class="fixed top-1/4 -left-2 z-3">
             <span class="relative inline-block rotate-90">
