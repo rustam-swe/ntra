@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Controllers;
+namespace Controller;
 
 use App\Ads;
+use App\Branch;
+use App\Session;
+use App\Status;
 
 class AdController
 {
@@ -23,16 +26,23 @@ class AdController
 
     public function show(int $id): void
     {
-        /**
-         * @var $id
-         */
+
         $ad        = $this->ads->getAd($id);
-        $ad->image = "../assets/images/ads/$ad->image";
+//        $ad->image = "../assets/images/ads/$ad->image";
 
         loadView('single-ad', ['ad' => $ad]);
     }
 
-    public function create(): void
+    public function create()
+    {
+        loadView('/dashboard/create-ad', [
+            'action'   => "/admin/ads/store",
+            'ad'       => null,
+            'branches' => (new Branch())->getBranches()
+        ]);
+    }
+
+    public function store(): void
     {
         $title       = $_POST['title'];
         $description = $_POST['description'];
@@ -50,9 +60,9 @@ class AdController
             $newAdsId = $this->ads->createAds(
                 $title,
                 $description,
-                5,
-                1,
-                1,
+                (int)(new Session())->getId(),
+                STATUS::ACTIVE,
+                ($_POST['branch']),
                 $address,
                 $price,
                 $rooms
@@ -68,8 +78,7 @@ class AdController
 
                 $imageHandler->addImage((int) $newAdsId, $fileName);
 
-                header('Location: /');
-
+                header('Location: /admin/ads/create');
                 exit();
             }
 
@@ -87,5 +96,6 @@ class AdController
     public function delete(int $id): void
     {
         $this->ads->deleteAds($id);
+        loadView('/dashboard/ads', ['ads' => $this->ads->getAds()]);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Controllers;
+namespace Controller;
 
 use App\Ads;
 use App\Session;
@@ -13,5 +13,10 @@ class UserController
     {
         $ads = (new Ads())->getUsersAds((new Session())->getId());
         loadView('profile', ['ads' => $ads], false);
+    }
+
+    public function about(): void
+    {
+        loadView('about');
     }
 }

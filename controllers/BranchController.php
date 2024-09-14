@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Controllers;
+namespace Controller;
 
 use App\Branch;
 
@@ -12,5 +12,17 @@ class BranchController
     {
         $branches = (new Branch())->getBranches();
         loadView('dashboard/branches', ['branches' => $branches]);
+    }
+
+    public function indexUser(): void
+    {
+        $branches = (new Branch())->getBranches();
+        loadView('dashboard/user-branch', ['branches' => $branches]);
+    }
+
+    public function show(int $id): void
+    {
+        $branch = (new Branch())->getBranch($id);
+        loadView('single-branch', ['branch' => $branch]);
     }
 }
