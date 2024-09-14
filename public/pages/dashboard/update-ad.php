@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
 
 /**
- * @var array $args
+ * @var $args
  */
 ?>
     <div class="page-wrapper toggled">
@@ -32,9 +33,9 @@ loadPartials(path: 'header', loadFromPublic: false);
                         </ul>
                     </div>
 
-                     <?php
+                    <?php
                     loadComponent('ads-form', $args); ?>
-                 
+                    <!-- End Content -->
                 </div>
             </div><!--end container-->
 

@@ -15,6 +15,19 @@ class AuthController
         $password = $_POST['password'];
 
         (new Auth())->login($username, $password);
+        
+    }
+
+    public function logout(): void
+    {
+     
+       if(isset($_SESSION['user'])){
+     
+         unset($_SESSION['user']);
+ 
+         header('location: /login');
+       }
+        
     }
 
 }
