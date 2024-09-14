@@ -22,6 +22,14 @@ class Authentication
             if (!(new Session())->getUser()) {
                 redirect('/login');
             }
+        } elseif ($middleware === 'owner') {
+            $currentUserId = (new Session())->getId();
+            $requestedUserId = $_GET['id'] ?? null;
+
+            if ($currentUserId !== $requestedUserId) {
+                $_SESSION['message']['error'] = "You are not authorized to access this resource.";
+                redirect('/');
+            }
         }
     }
 }

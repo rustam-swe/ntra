@@ -15,17 +15,25 @@ class Auth
         $this->pdo = DB::connect();
     }
 
-    public function login(string $username, string $password)
+    public function login(string $username, string $password): void
     {
         // Get user or fail
         $user = (new User())->getByUsername($username, $password);
 
         // Get users role
-        $query = "SELECT users.*, user_roles.role_id
-                  FROM users
-                      JOIN user_roles ON users.id = user_roles.user_id
-                  WHERE id = $user->id";
+//        $query = "SELECT users.*, user_roles.role_id
+//                  FROM users
+//                      JOIN user_roles ON users.id = user_roles.user_id
+//                  WHERE id = $user->id";
 
+        $query = "SELECT users.*, user_roles.role_id
+              FROM users
+              JOIN user_roles ON users.id = user_roles.user_id
+              WHERE users.id = :id";  // Use a placeholder instead of directly inserting the ID
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $user->id]);  // Bind the user ID to the query
+        $userWithRoles = $stmt->fetch(PDO::FETCH_OBJ);
 
         // |public
         // |- dashboard/profile
@@ -39,7 +47,7 @@ class Auth
 
 
         // Execute query
-        $userWithRoles = $this->pdo->query($query)->fetch();
+//        $userWithRoles = $this->pdo->query($query)->fetch();
 
         if ($userWithRoles) {
             $_SESSION['user'] = [

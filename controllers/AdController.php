@@ -39,6 +39,15 @@ class AdController
         ]);
     }
 
+    public function createAd(): void
+    {
+        loadView('/dashboard/user-create-ad', [
+            'action'   => "/user/ads/store",
+            'ad'       => null,
+            'branches' => (new Branch())->getBranches()
+        ]);
+    }
+
     public function store(int|null $id = null): void
     {
         if ($_POST['title']
@@ -92,6 +101,60 @@ class AdController
         echo "Iltimos, barcha maydonlarni to'ldiring!";
     }
 
+    public function storeAd(int|null $id = null): void
+    {
+        if ($_POST['title']
+            && $_POST['description']
+            && $_POST['price']
+            && $_POST['address']
+            && $_POST['rooms']
+            && $_POST['branch']
+        ) {
+            if ($id) {
+                $ad = $this->ads->updateAds(
+                    $id,
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                    (float) $_POST['price'],
+                    (int) $_POST['rooms']
+                );
+            } else {
+                $ad = $this->ads->createAds(
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                    (float) $_POST['price'],
+                    (int) $_POST['rooms']
+                );
+            }
+
+            if ($ad && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
+                $imageHandler = new \App\Image();
+                $fileName     = $imageHandler->handleUpload();
+
+                if (!$fileName) {
+                    exit('Rasm yuklanmadi!');
+                }
+
+                $imageHandler->addImage((int) $ad, $fileName);
+            }
+
+            header('Location: /user/ads/create');
+
+            exit();
+        }
+
+        echo "Iltimos, barcha maydonlarni to'ldiring!";
+    }
+
+
     public function update(int $id): void
     {
         loadView('dashboard/update-ad', [
@@ -118,6 +181,16 @@ class AdController
         $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
         $branches = (new \App\Branch())->getBranches();
         loadView('home', ['ads' => $ads, 'branches' => $branches]);
+    }
+
+    public function searchBranch(int $id): void
+    {
+//        $searchBranch = $_REQUEST['search_branch'] ? (int) $_REQUEST['search_branch'] : null;
+
+        $ad = (new \App\Ads())->searchBranch($id);
+        $ads = (new \App\Ads())->getAds();
+        $branches = (new \App\Branch())->getBranches();
+        loadView('home', ['ad' => $ad, 'ads' => $ads, 'branches' => $branches]);
     }
 
 }

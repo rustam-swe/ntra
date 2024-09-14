@@ -56,17 +56,17 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-arrow-expand-all text-2xl me-2 text-green-600"></i>
-                                        <span>8000sqf</span>
+                                        <span><?= $ad->branch_name ?></span>
                                     </li>
 
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-bed text-2xl me-2 text-green-600"></i>
-                                        <span>4 Beds</span>
+                                        <span><?= $ad->gender_name ?></span>
                                     </li>
 
                                     <li class="flex items-center">
                                         <i class="mdi mdi-shower text-2xl me-2 text-green-600"></i>
-                                        <span>4 Baths</span>
+                                        <span><?= $ad->rooms ?></span>
                                     </li>
                                 </ul>
 
