@@ -15,6 +15,7 @@ class AuthController
         $password = $_POST['password'];
 
         (new Auth())->login($username, $password);
+
     }
 
 }

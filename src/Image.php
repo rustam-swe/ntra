@@ -64,7 +64,7 @@ class Image
     public static function show(string|null $file = null): string
     {
         return $file
-            ? self::DEFAULT_PATH.$file
+            ? '/assets/images/ads/'.$file
             : self::DEFAULT_PATH.self::DEFAULT_IMAGE;
     }
 }
