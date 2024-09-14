@@ -1,12 +1,14 @@
 <?php
 
 declare(strict_types=1);
+echo "ishladi resourse";
 loadPartials(path: 'header', loadFromPublic: false);
 
 /**
  * @var $user
  * @var array $ads
  */
+//dd($user);
 ?>
 <div class="page-wrapper toggled">
     <?php

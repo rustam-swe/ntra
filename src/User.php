@@ -58,6 +58,7 @@ class User
         return $stmt->fetch();
     }
 
+
     public function updateUser(
         int    $id,
         string $username,

@@ -10,8 +10,8 @@ class Image
 {
     private PDO $pdo;
 
-    const string DEFAULT_IMAGE = 'default.jpg';
-    const string DEFAULT_PATH  = '/assets/images/';
+    const DEFAULT_IMAGE = 'default.jpg';
+    const DEFAULT_PATH  = '/assets/images/';
 
     public function __construct()
     {

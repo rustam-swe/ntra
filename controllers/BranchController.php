@@ -13,4 +13,11 @@ class BranchController
         $branches = (new Branch())->getBranches();
         loadView('dashboard/branches', ['branches' => $branches]);
     }
+    public  function  branches()
+    {
+        $branches = (new Branch())->getBranches();
+
+        loadView('branches', ['branches' => $branches]);
+
+    }
 }

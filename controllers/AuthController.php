@@ -11,6 +11,7 @@ class AuthController
 
     public function login(): void
     {
+//        dd($_POST);
         $username = $_POST['username'];
         $password = $_POST['password'];
 

@@ -29,11 +29,24 @@ class AdController
         $ad = $this->ads->getAd($id);
         loadView('single-ad', ['ad' => $ad]);
     }
+    public function branch(int $id): void
+    {
+        $branch1 = (new Branch())->getBranch($id);
+
+        $searchPhrase = "";
+        $branch = $branch1->id;
+        $minPrice = 0;
+        $maxPrice = PHP_INT_MAX;
+
+        $ads          = (new Ads())->search($searchPhrase, $branch, $maxPrice,$minPrice);
+
+        loadView('branch', ['branch1' => $branch1, 'ads' => $ads]);
+    }
 
     public function create(): void
     {
         loadView('/dashboard/create-ad', [
-            'action'   => "/admin/ads/store",
+            'action'   => "/ads/store",
             'ad'       => null,
             'branches' => (new Branch())->getBranches()
         ]);
@@ -41,6 +54,7 @@ class AdController
 
     public function store(int|null $id = null): void
     {
+//        dd($_POST);
         if ($_POST['title']
             && $_POST['description']
             && $_POST['price']
@@ -84,7 +98,7 @@ class AdController
                 $imageHandler->addImage((int) $ad, $fileName);
             }
 
-            header('Location: /admin/ads/create');
+            header('Location: /ads/create');
 
             exit();
         }
@@ -95,7 +109,7 @@ class AdController
     public function update(int $id): void
     {
         loadView('dashboard/update-ad', [
-            'action'   => "/admin/ads/update/$id",
+            'action'   => "/ads/update/$id",
             'ad'       => $this->ads->getAd($id),
             'branches' => (new Branch())->getBranches(),
         ]);
@@ -104,20 +118,18 @@ class AdController
     public function delete(int $id): void
     {
         $this->ads->deleteAds($id);
+        redirect("profile");
     }
 
-    public function search(): void
+    public function search()
     {
-
         $searchPhrase = $_REQUEST['search_phrase'];
-        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
-        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
-        $searchMaxPrice = $_GET['max_price'] ? (int) $_GET['max_price'] : PHP_INT_MAX;
+        $branch = $_GET['branch'] ?(int)$_GET['branch'] : null;
+        $minPrice = $_GET['min_price'] ? (int)$_GET['min_price'] : 0;
+        $maxPrice = $_GET['max_price'] ? (int)$_GET['max_price'] : PHP_INT_MAX;
 
-
-        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
-        $branches = (new \App\Branch())->getBranches();
-        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+        $ads          = (new Ads())->search($searchPhrase, $branch, $maxPrice,$minPrice);
+        loadView('home', ['ads' => $ads]);
     }
 
 }

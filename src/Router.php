@@ -96,6 +96,8 @@ class Router
             if (strtolower($_REQUEST['_method']) !== 'delete') {
                 return;
             }
+        }else{
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -118,6 +120,13 @@ class Router
             loadView('404');
         }
 //        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
+        exit();
+    }
+    public function logout(): void
+    {
+        session_destroy();
+
+        header('Location: /login');
         exit();
     }
 }

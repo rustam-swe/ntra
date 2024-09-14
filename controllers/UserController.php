@@ -14,6 +14,16 @@ class UserController
     {
         loadView('/dashboard/users', ['users' => (new User())->getUsers()]);
     }
+    public  function  LoadProfile():void
+    {
+        $ads = (new Ads())-> getUsersAds((int )$_SESSION['user']['id']);
+//        dd($ads);
+
+
+        LoadView("profile", ["ads" => $ads]);
+
+
+    }
 
     public function show(int $id): void
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use JetBrains\PhpStorm\NoReturn;
 use PDO;
 
 class Auth
@@ -15,16 +16,20 @@ class Auth
         $this->pdo = DB::connect();
     }
 
-    public function login(string $username, string $password)
+    #[NoReturn] public function login(string $username, string $password)
     {
-        // Get user or fail
-        $user = (new User())->getByUsername($username, $password);
+//        dd([$username, $password]);
 
-        // Get users role
+        $user = (new User())->getByUsername($username, $password);
+//        dd($user);
+
+
+
         $query = "SELECT users.*, user_roles.role_id
                   FROM users
                       JOIN user_roles ON users.id = user_roles.user_id
                   WHERE id = $user->id";
+//        dd($query);
 
 
         // |public
@@ -40,6 +45,7 @@ class Auth
 
         // Execute query
         $userWithRoles = $this->pdo->query($query)->fetch();
+//        dd($userWithRoles);
 
         if ($userWithRoles) {
             $_SESSION['user'] = [
@@ -49,11 +55,11 @@ class Auth
             ];
 
             if ($userWithRoles->role_id === Role::ADMIN) {
-                redirect('/admin');
+                redirect('/');
             }
 
             unset($_SESSION['message']['error']);
-            redirect('/profile2');
+            redirect('/');
         }
 
         $_SESSION['message']['error'] = "Wrong email or password";

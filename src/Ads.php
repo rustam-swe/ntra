@@ -97,7 +97,8 @@ class Ads
     ) {
         $query = "UPDATE ads SET title = :title, description = :description, user_id = :user_id,
                  status_id = :status_id, branch_id = :branch_id, address = :address, 
-                 price = :price, rooms = :rooms, updated_at = NOW() WHERE id = :id";
+                 price = :price, rooms = :rooms WHERE id = :id";
+
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
@@ -125,44 +126,29 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function search(
-        string|null $searchPhrase = null
-    ): false|array {
-        /**
-         * Filters
-         * - search phrase
-         * - branch
-         * - min/max price
-         * - gender
-         * - position
-         * - room
-         */
+    public function search(string $searchPhrase, int|null $branch = null, int $maxPrice = PHP_INT_MAX, int $minPrice = 0): false|array
+    {
+//        dd([$minPrice, $maxPrice]);
+        $query = "SELECT *, 
+                     ads.id AS id,
+                     ads.address AS address,
+                     ads_image.name AS image
+              FROM ads
+              JOIN branch ON branch.id = ads.branch_id
+              LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+              WHERE (ads.title LIKE :searchPhrase
+                 OR ads.description LIKE :searchPhrase)
+                 AND ads.price BETWEEN :minPrice AND :maxPrice";
 
-        $query  = "SELECT *, 
-                                ads.id AS id,
-                                ads.address AS address,
-                                ads_image.name AS image
-                         FROM ads
-                             JOIN branch ON branch.id = ads.branch_id
-                             LEFT JOIN ads_image ON ads.id = ads_image.ads_id
-                         WHERE 1";
-        $params = [];
+        $params = [
+            ':searchPhrase' => "%$searchPhrase%",
+            ':minPrice' => $minPrice,
+            ':maxPrice' => $maxPrice
+        ];
 
-        if (isset($_GET['search_phrase']) && strlen($_GET['search_phrase']) > 0) {
-            $query                   .= " AND title LIKE :searchPhrase OR ads.description LIKE :searchPhrase";
-            $params[':searchPhrase'] = "%{$_GET['search_phrase']}%";
-        }
-
-        if (!empty($_GET['min_price']) && !empty($_GET['max_price'])) {
-            $query               .= " AND price BETWEEN :minPrice AND :maxPrice";
-            $params[':minPrice'] = $_GET['min_price'];
-            $params[':maxPrice'] = $_GET['max_price'];
-        } elseif (!empty($_GET['min_price'])) {
-            $query               .= " AND price >= :minPrice";
-            $params[':minPrice'] = $_GET['min_price'];
-        } elseif (!empty($_GET['max_price'])) {
-            $query               .= " AND price <= :maxPrice";
-            $params[':maxPrice'] = $_GET['max_price'];
+        if ($branch) {
+            $query .= " AND ads.branch_id = :branch";
+            $params[':branch'] = $branch;
         }
 
         $stmt = $this->pdo->prepare($query);
@@ -238,4 +224,15 @@ class Ads
         dd($stmt->queryString);
         return $stmt->fetchAll();
     }
+    public function updateLike(int $adId)
+    {
+        $query = "UPDATE ads
+              SET like_count = like_count + 1
+              WHERE id = :adId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':adId', $adId, PDO::PARAM_INT);
+
+    }
+
+
 }

@@ -33,12 +33,12 @@ loadPartials(path: 'header', loadFromPublic: false);
                         /**
                          * @var $branches
                          */
+//                        dd($branches);
 
                         foreach ($branches as $branch):?>
                             <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                                 <div class="relative">
-                                    <img src="<?php
-                                    echo \App\Image::show($branch?->image) ?>" alt="">
+                                    <img src="../assets/images/ads/image 1.png  " alt="">
 
                                     <div class="absolute top-4 end-4">
                                         <a href="javascript:void(0)"
@@ -49,7 +49,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 
                                 <div class="p-6">
                                     <div class="pb-6">
-                                        <a href="#"
+                                        <a href="/branch/<?= $branch->id ?>"
                                            class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $branch->name; ?></a>
                                     </div>
 

@@ -34,29 +34,28 @@ loadPartials(path: 'header', loadFromPublic: false);
                     /**
                      * @var $ads
                      */
-                    foreach ($ads as $ad):?>
+
+//                    dd($ads);
+                    foreach($ads as $ad):
+                        ?>
                         <div class="group rounded-xl bg-white dark:bg-slate-900 shadow hover:shadow-xl dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700 overflow-hidden ease-in-out duration-500">
                             <div class="relative">
-                                <img src="<?= \App\Image::show($ad->image) ?>" alt="">
+                                <img src="../assets/images/ads/<?= ($ad->image); ?>" alt="">
 
                                 <div class="absolute top-4 end-4">
-                                    <a href="/admin/ads/update/<?= $ad->id ?>"
-                                       class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600">
-                                        <i class="mdi mdi-pencil text-[20px]"></i>
-                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i class="mdi mdi-heart text-[20px]"></i></a>
                                 </div>
                             </div>
 
                             <div class="p-6">
                                 <div class="pb-6">
-                                    <a href="/ads/<?= $ad->id ?>"
-                                       class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $ad->title; ?></a>
+                                    <a href="/ads/<?= ($ad->id); ?>" class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"> <?= $ad->title; ?> </a>
                                 </div>
 
                                 <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-arrow-expand-all text-2xl me-2 text-green-600"></i>
-                                        <span>8000sqf</span>
+                                        <span><?= ($ad->rooms); ?></span>
                                     </li>
 
                                     <li class="flex items-center me-4">
@@ -73,14 +72,12 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <ul class="pt-6 flex justify-between items-center list-none">
                                     <li>
                                         <span class="text-slate-400">Price</span>
-                                        <p class="text-lg font-medium">$ <?= $ad->price ?></p>
+                                        <p class="text-lg font-medium">$ <?= ($ad->price); ?></p>
                                     </li>
-
                                 </ul>
                             </div>
-                        </div><!--end property content-->
-                    <?php
-                    endforeach; ?>
+                        </div>
+                    <?php endforeach; ?>
                 </div><!--en grid-->
 
                 <!-- End Content -->
