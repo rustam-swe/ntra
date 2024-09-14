@@ -5,7 +5,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 ?>
 <div class="page-wrapper toggled">
     <?php
-    loadPartials('sidebar', loadFromPublic: false); ?>
+    loadPartials('../user-partials/sidebar', loadFromPublic: false); ?>
 
     <!-- Start Page Content -->
     <main class="page-content bg-gray-50 dark:bg-slate-800">
@@ -20,7 +20,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 
                     <ul class="tracking-[0.5px] inline-block sm:mt-0 mt-3">
                         <li class="inline-block capitalize text-[16px] font-medium duration-500 dark:text-white/70 hover:text-green-600 dark:hover:text-white">
-                            <a href="/admin">Dashboard</a></li>
+                            <a href="/user">Dashboard</a></li>
                         <li class="inline-block text-base text-slate-950 dark:text-white/70 mx-0.5 ltr:rotate-0 rtl:rotate-180">
                             <i class="mdi mdi-chevron-right"></i></li>
                         <li class="inline-block capitalize text-[16px] font-medium text-green-600 dark:text-white"
@@ -56,7 +56,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                     <li class="flex items-center me-4">
                                         <i class="mdi mdi-arrow-expand-all text-2xl me-2 text-green-600"></i>
-                                        <span><?= $ad->branch_name ?></span>
+                                        <span>8000sqf</span>
                                     </li>
 
                                     <li class="flex items-center me-4">

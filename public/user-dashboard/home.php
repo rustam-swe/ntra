@@ -2,6 +2,10 @@
 
 loadPartials('header');
 loadPartials('navbar');
+/**
+ * @var $branches
+ */
+//dd($_SESSION);
 ?>
     <!-- Start -->
     <section class="relative lg:py-24 py-16">
@@ -36,10 +40,9 @@ loadPartials('navbar');
                                                     <select class="form-select z-2" data-trigger name="choices-catagory"
                                                             id="choices-catagory-buy"
                                                             aria-label="Default select example">
-                                                        <option>Houses</option>
-                                                        <option>Apartment</option>
-                                                        <option>Offices</option>
-                                                        <option>Townhome</option>
+                                                        <?php foreach ($branches as $branch): ?>
+                                                        <option value="<?php echo $branch->id ?>"><?= $branch->name?></option>
+                                                    <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -116,12 +119,12 @@ loadPartials('navbar');
 
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <span><?= $ad->gender ?></span>
                                 </li>
 
                                 <li class="flex items-center">
                                     <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <span><?= $ad->rooms ?></span>
                                 </li>
                             </ul>
 
