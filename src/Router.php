@@ -49,6 +49,7 @@ class Router
             if ((new self())->getResourceId()) {
                 $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
                     $callback((new self())->getResourceId());
                     exit();
                 }
@@ -63,26 +64,29 @@ class Router
 
     public static function post($path, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'
-            && $_SERVER['REQUEST_URI'] === $path
-            && strtolower($_REQUEST['_method']) === 'patch'
-        ) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
             $callback();
             exit();
         }
     }
 
-    public static function patch($path, $callback): void
+    public static function patch(string $path, callable $callback, string|null $middleware = null): void
     {
-        $isPatch = strtolower($_REQUEST['_method']) === 'patch';
-
-        if (!$isPatch) {
-            return;
+        if (isset($_REQUEST['_method'])) {
+            if (strtolower($_REQUEST['_method']) !== 'patch') {
+                return;
+            }
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
-            $callback();
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ((new self())->getResourceId()) {
+                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
+                    $callback((new self())->getResourceId());
+                    exit();
+                }
+            }
         }
     }
 
@@ -102,8 +106,6 @@ class Router
                     exit();
                 }
             }
-            $callback();
-            exit();
         }
     }
 
@@ -113,7 +115,7 @@ class Router
         if ($code == 404) {
             loadView('404');
         }
-//        echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
+       echo json_encode(['ok' => false, 'code' => $code, 'message' => $message]);
         exit();
     }
 }
