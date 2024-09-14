@@ -31,7 +31,14 @@ class Branch
 
         return $stmt->execute();
     }
-
+//    public function getBranchSame(int $id)
+//    {
+//        $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE id = :id AND name = :name");
+//        $stmt->bindParam(':id', $id);
+//        $stmt->bindParam(':name', $name);
+//        $stmt->execute();
+//        return $stmt->fetchall();
+//    }
     public function getBranch(int $id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE id = :id");
@@ -43,6 +50,14 @@ class Branch
     public function getBranches(): false|array
     {
         return $this->pdo->query("SELECT * FROM branch")->fetchAll();
+    }
+
+    public function getBranchesSame(string $name): false|array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE name = :name");
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function deleteBranch(int $id): bool
