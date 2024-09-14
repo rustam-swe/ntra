@@ -19,7 +19,7 @@ function getAds(): false|array
 
 function basePath(string $path): string
 {
-    return __DIR__.$path;
+    return __DIR__ . $path;
 }
 
 function loadView(string $path, array|null $args = null, bool $loadFromPublic = true): void
@@ -58,16 +58,32 @@ function loadPartials(string $path, array|null $args = null, bool $loadFromPubli
     require basePath($file);
 }
 
+
 function loadController(string $path, array|null $args = null): void
 {
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/controllers/'.$path.'.php');
+    require basePath('/controllers/' . $path . '.php');
 }
 
 function redirect(string $url): void
 {
     header("Location: $url");
     exit();
+}
+
+function loadComponent(string $path, array|null $args = null): void
+{
+    if (is_array($args)) {
+        extract($args);
+    }
+
+    $file = basePath("/resources/views/components/$path.php");
+
+    if (!file_exists($file)) {
+        echo "Required component not found: $file";
+        return;
+    }
+    require $file;
 }

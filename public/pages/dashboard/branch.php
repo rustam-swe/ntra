@@ -43,13 +43,13 @@ loadPartials(path: 'header', loadFromPublic: false);
                                     <div class="absolute top-4 end-4">
                                         <a href="javascript:void(0)"
                                            class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                    class="mdi mdi-heart text-[20px]"></i></a>
+                                                class="mdi mdi-heart text-[20px]"></i></a>
                                     </div>
                                 </div>
 
                                 <div class="p-6">
                                     <div class="pb-6">
-                                        <a href="/branch/same/<?= $branch->id ?>" class="text-xl font-medium hover:text-green-600 transition-all duration-500 ease-in-out"><?= $branch->name ?></a>
+                                        <a href="/branch/<?= $branch->id ?>" class="text-xl font-medium hover:text-green-600 transition-all duration-500 ease-in-out"><?= $branch->name ?></a>
                                     </div>
 
                                     <ul class="pt-6 flex justify-between items-center list-none">
