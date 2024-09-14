@@ -39,7 +39,13 @@ class User
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
+    }
+
+    public function getUsers(): false|array
+    {
+        $query = "SELECT * FROM users";
+        return $this->pdo->query($query)->fetchAll();
     }
 
     public function getByUsername(string $username, string $password)
@@ -76,5 +82,16 @@ class User
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+    }
+    public function isUserExists(string $username):bool
+    {
+        if (isset($_POST['name'])) {
+            $username = $_POST['name'];
+            $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            return (bool)$stmt->fetch();
+        }
+        return false;
     }
 }

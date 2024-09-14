@@ -10,8 +10,8 @@ class Image
 {
     private PDO $pdo;
 
-    const string DEFAULT_IMAGE = 'default.jpg';
-    const string DEFAULT_PATH  = '/assets/images/';
+    const  DEFAULT_IMAGE = 'default.jpg';
+    const  DEFAULT_PATH  = '/assets/images/';
 
     public function __construct()
     {
@@ -28,7 +28,6 @@ class Image
         $statement->bindParam(':name', $name);
         return $statement->execute();
     }
-
     public function handleUpload(): string
     {
         // Check if file uploaded
@@ -61,10 +60,11 @@ class Image
         return $fileName;
     }
 
+
     public static function show(string|null $file = null): string
     {
         return $file
-            ? self::DEFAULT_PATH.$file
+            ? '/assets/images/ads/'.$file
             : self::DEFAULT_PATH.self::DEFAULT_IMAGE;
     }
 }

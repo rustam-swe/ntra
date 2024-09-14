@@ -15,7 +15,7 @@ class Auth
         $this->pdo = DB::connect();
     }
 
-    public function login(string $username, string $password)
+    public function login(string $username, string $password): void
     {
         // Get user or fail
         $user = (new User())->getByUsername($username, $password);
@@ -26,24 +26,8 @@ class Auth
                       JOIN user_roles ON users.id = user_roles.user_id
                   WHERE id = $user->id";
 
-
-        // |public
-        // |- dashboard/profile
-        // |--- assets
-        // |--- pages
-        // |--- partials
-        // |- public
-        // |--- assets
-        // |--- pages
-        // |--- partials
-
-
         // Execute query
         $userWithRoles = $this->pdo->query($query)->fetch();
-        if ($userWithRoles->role_id === Role::ADMIN) {
-            redirect('/admin');
-        }
-
 
         if ($userWithRoles) {
             $_SESSION['user'] = [
@@ -52,10 +36,13 @@ class Auth
                 'role'     => $userWithRoles->role_id
             ];
 
-            unset($_SESSION['message']['error']);
-            redirect('/profile2');
+            if ($userWithRoles->role_id === Role::ADMIN) {
+                redirect('/admin');
+            }
+            elseif ($userWithRoles->role_id === Role::USER) {
+                redirect('/profile');
+            }
         }
-
         $_SESSION['message']['error'] = "Wrong email or password";
         redirect('/login');
     }
