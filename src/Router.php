@@ -49,6 +49,7 @@ class Router
             if ((new self())->getResourceId()) {
                 $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
                     $callback((new self())->getResourceId());
                     exit();
                 }
@@ -63,33 +64,16 @@ class Router
 
     public static function post($path, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'
-            && $_SERVER['REQUEST_URI'] === $path
-            && strtolower($_REQUEST['_method']) === 'patch'
-        ) {
-            $callback();
-            exit();
-        }
-    }
-
-    public static function patch($path, $callback): void
-    {
-        $isPatch = strtolower($_REQUEST['_method']) === 'patch';
-
-        if (!$isPatch) {
-            return;
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
             $callback();
             exit();
         }
     }
 
-    public static function delete(string $path, $callback): void
+    public static function patch(string $path, callable $callback, string|null $middleware = null): void
     {
         if (isset($_REQUEST['_method'])) {
-            if (strtolower($_REQUEST['_method']) !== 'delete') {
+            if (strtolower($_REQUEST['_method']) !== 'patch') {
                 return;
             }
         }
@@ -98,7 +82,29 @@ class Router
             if ((new self())->getResourceId()) {
                 $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
                     $callback((new self())->getResourceId());
+                    exit();
+                }
+            }
+        }
+    }
+
+    public static function delete(string $path, $callback): void
+    {
+        $method = $_REQUEST['_method'] ?? '';
+
+        if (strtolower($method) !== 'delete') {
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $resourceId = (new self())->getResourceId();
+
+            if ($resourceId) {
+                $path = str_replace('{id}', (string)$resourceId, $path);
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    $callback($resourceId);
                     exit();
                 }
             }
@@ -106,6 +112,7 @@ class Router
             exit();
         }
     }
+
 
     public static function errorResponse(int $code, $message = 'Error bad request'): void
     {

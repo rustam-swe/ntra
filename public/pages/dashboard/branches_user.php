@@ -1,15 +1,10 @@
 <?php
 
-declare(strict_types=1);
-loadPartials(path: 'header', loadFromPublic: false);
+loadPartials('header');
+
 ?>
     <div class="page-wrapper toggled">
-        <?php
-        loadPartials(path: 'sidebar', loadFromPublic: false); ?>
-        <!-- Start Page Content -->
-        <main class="page-content bg-gray-50 dark:bg-slate-800">
-            <?php
-            loadPartials(path: 'top-header', loadFromPublic: false); ?>
+
 
             <div class="container-fluid relative px-3">
                 <div class="layout-specing">
@@ -20,10 +15,13 @@ loadPartials(path: 'header', loadFromPublic: false);
                         <ul class="tracking-[0.5px] inline-block sm:mt-0 mt-3">
                             <li class="inline-block capitalize text-[16px] font-medium duration-500 dark:text-white/70 hover:text-green-600 dark:hover:text-white">
                                 <a href="/admin">Dashboard</a></li>
+
                             <li class="inline-block text-base text-slate-950 dark:text-white/70 mx-0.5 ltr:rotate-0 rtl:rotate-180">
-                                <i class="mdi mdi-chevron-right"></i></li>
-                            <li class="inline-block capitalize text-[16px] font-medium text-green-600 dark:text-white"
-                                aria-current="page">Filiallar
+                        </ul>
+                        <ul class="navigation-menu list-none flex items-center mb-0 space-x-4">
+
+                            <li>
+                                <a href="/" class="text-gray-700 dark:text-white hover:text-green-600 transition">Home</a>
                             </li>
                         </ul>
                     </div>
@@ -43,13 +41,13 @@ loadPartials(path: 'header', loadFromPublic: false);
                                     <div class="absolute top-4 end-4">
                                         <a href="javascript:void(0)"
                                            class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                    class="mdi mdi-heart text-[20px]"></i></a>
+                                                class="mdi mdi-heart text-[20px]"></i></a>
                                     </div>
                                 </div>
 
                                 <div class="p-6">
                                     <div class="pb-6">
-                                        <a href="#"
+                                        <a href="/branches/<?= $branch->id?>"
                                            class="text-lg hover:text-green-600 font-medium ease-in-out duration-500"><?= $branch->name; ?></a>
                                     </div>
 
@@ -70,13 +68,9 @@ loadPartials(path: 'header', loadFromPublic: false);
                     <!-- End Content -->
                 </div>
             </div><!--end container-->
-            <?php
-            loadPartials(path: 'dashboard-footer', loadFromPublic: false); ?>
+
         </main>
         <!--End page-content" -->
     </div>
     <!-- page-wrapper -->
 
-<?php
-loadPartials(path: 'footer', loadFromPublic: false);
-?>

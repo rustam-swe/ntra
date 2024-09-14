@@ -17,4 +17,18 @@ class AuthController
         (new Auth())->login($username, $password);
     }
 
+    public function register(): void
+    {
+        $username = $_POST['username'];
+        $position = $_POST['position'];
+        $phone = $_POST['phone'];
+        $gender = $_POST['gender'];
+        $email = $_POST['email'];
+        $password= $_POST['password'];
+        (new Auth())->register($username,$position,$phone,$gender,$email,$password);
+
+
+    }
+
+
 }
