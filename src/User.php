@@ -48,11 +48,11 @@ class User
         return $this->pdo->query($query)->fetchAll();
     }
 
-    public function getByUsername(string $username, string $password)
+    public function getByUsername(string $username, string $pass)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username AND pass = :pass");
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':pass', $pass);
         $stmt->execute();
 
         return $stmt->fetch();

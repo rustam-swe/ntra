@@ -45,10 +45,41 @@ class Branch
         return $this->pdo->query("SELECT * FROM branch")->fetchAll();
     }
 
+    public function getBranchs()
+    {
+        $query = "SELECT * from branch";
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+
     public function deleteBranch(int $id): bool
     {
         $stmt = $this->pdo->prepare("DELETE FROM branch WHERE id = :id");
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
+    }
+
+    public function search(string $searchPhrase, string|null $branch=null): false|array {
+        $searchPhrase = "%{$searchPhrase}%";
+        $query = "SELECT *,
+                  ads.id AS id,
+                  ads.address AS address,
+                  ads_image.name AS image
+                  FROM ads
+                  JOIN branch ON branch.id = ads.branch_id
+                  LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+                  WHERE (title LIKE :searchPhrase 
+                         OR ads.description LIKE :searchPhrase)";
+
+        if ($branch) {
+            $query .= " AND branch_id = :branch";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam('branch', $varBranch);
+        }
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam('searchPhrase', $searchPhrase);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }

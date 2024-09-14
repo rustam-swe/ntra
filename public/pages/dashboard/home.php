@@ -1,6 +1,8 @@
 <?php
 
+
 declare(strict_types=1);
+// dd(getUser()['role_id']);
 loadPartials(path: 'header', loadFromPublic: false);
 ?>
 
