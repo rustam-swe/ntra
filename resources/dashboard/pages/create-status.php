@@ -1,8 +1,7 @@
 <?php
 
 declare(strict_types=1);
-loadPartials('header');
-loadPartials('navbar');
+loadDashboardPartials('header');
 ?>
 
 
@@ -229,5 +228,5 @@ loadPartials('navbar');
     </div>
     <!-- page-wrapper -->
 <?php
-loadPartials('footer');
+loadDashboardPartials('footer');
 ?>

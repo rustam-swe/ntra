@@ -28,22 +28,19 @@ loadPartials('navbar');
                                             </div>
 
                                             <div>
-                                                <label for="buy-properties"
-                                                       class="form-label font-medium text-slate-900 dark:text-white">Select
-                                                    Categories:</label>
+                                                <label for="buy-properties" class="form-label font-medium text-slate-900 dark:text-white">Select Branches:</label>
                                                 <div class="filter-search-form relative filter-border mt-2">
                                                     <i class="uil uil-estate icons"></i>
-                                                    <select class="form-select z-2" data-trigger name="choices-catagory"
-                                                            id="choices-catagory-buy"
-                                                            aria-label="Default select example">
-                                                        <option>Houses</option>
-                                                        <option>Apartment</option>
-                                                        <option>Offices</option>
-                                                        <option>Townhome</option>
+                                                    <select class="form-select z-2" data-trigger name="branch" id="choices-catagory-buy" aria-label="Default select example">
+                                                        <option value="">Branch : </option>
+
+                                                        <?php foreach ($branches as $branch): ?>
+                                                            <option value="<?= $branch->id ?>"><?= $branch->name ?></option>
+                                                        <?php endforeach; ?>
+
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div>
                                                 <label for="buy-min-price" class="form-label font-medium text-slate-900 dark:text-white">
                                                     Min Price :
@@ -110,18 +107,18 @@ loadPartials('navbar');
 
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
-                                    <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span>8000sqf</span>
+                                    <i class="mdi mdi-map-marker-radius text-2xl me-2 text-green-600"></i>
+                                    <span><?= $ad->branch_name ?></span>
                                 </li>
 
                                 <li class="flex items-center me-4">
-                                    <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <i class="mdi mdi-gender-male-female text-2xl me-2 text-green-600"></i>
+                                    <span><?= $ad->gender ?></span>
                                 </li>
 
                                 <li class="flex items-center">
-                                    <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <i class="mdi mdi-door-open text-2xl me-2 text-green-600"></i>
+                                    <span><?= $ad->rooms ?></span>
                                 </li>
                             </ul>
 

@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-loadPartials(path: 'header', loadFromPublic: false);
+loadDashboardPartials(path: 'header');
 ?>
 
 <!-- Loader Start -->
@@ -18,12 +18,12 @@ loadPartials(path: 'header', loadFromPublic: false);
 
 <div class="page-wrapper toggled">
     <?php
-    loadPartials(path: 'sidebar', loadFromPublic: false); ?>
+    loadDashboardPartials(path: 'sidebar'); ?>
 
     <!-- Start Page Content -->
     <main class="page-content bg-gray-50 dark:bg-slate-800">
         <?php
-        loadPartials(path: 'top-header', loadFromPublic: false); ?>
+        loadDashboardPartials(path: 'top-header'); ?>
 
         <div class="container-fluid relative px-3">
             <div class="layout-specing">
@@ -229,12 +229,12 @@ loadPartials(path: 'header', loadFromPublic: false);
         </div><!--end container-->
 
         <?php
-        loadPartials(path: 'dashboard-footer', loadFromPublic: false); ?>
+        loadDashboardPartials(path: 'dashboard-footer'); ?>
     </main>
     <!--End page-content" -->
 </div>
 <!-- page-wrapper -->
 
 <?php
-loadPartials(path: 'footer', loadFromPublic: false);
+loadDashboardPartials(path: 'footer');
 ?>

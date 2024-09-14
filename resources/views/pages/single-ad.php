@@ -91,6 +91,7 @@ loadPartials('navbar');
                         </div>
                     </div>
 
+                    <?php if ((new \App\Session())->getRoleId() === \App\Role::ADMIN) : ?>
                     <div class="mt-12 text-center">
                         <div class="mt-6">
                             <form action="/ads/delete/<?= $ad->id ?>" method="post">
@@ -102,6 +103,7 @@ loadPartials('navbar');
                             </form>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
