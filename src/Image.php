@@ -18,6 +18,8 @@ class Image
         $this->pdo = DB::connect();
     }
 
+
+
     public function addImage(int $adsId, string $name): bool
     {
         $query = "INSERT INTO ads_image (ads_id, name)
@@ -64,7 +66,7 @@ class Image
     public static function show(string|null $file = null): string
     {
         return $file
-            ? self::DEFAULT_PATH.$file
+            ? '/assets/images/ads/'.$file
             : self::DEFAULT_PATH.self::DEFAULT_IMAGE;
     }
 }

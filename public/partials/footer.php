@@ -66,7 +66,7 @@
                             <div class="flex mt-6">
                                 <i data-feather="map-pin" class="size-5 text-green-600 me-3"></i>
                                 <div class="">
-                                    <h6 class="text-gray-300 mb-2">C/54 Northwest Freeway, <br> Suite 558, <br> Houston, USA 485</h6>
+                                    <h6 class="text-gray-300 mb-2">O'zbekiston,Toshkent, <br>chilonzor, <br> 19-kv 10-xonodon</h6>
                                     <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin" data-type="iframe" class="text-green-600 hover:text-green-700 duration-500 ease-in-out lightbox">View on Google map</a>
                                 </div>
                             </div>
@@ -74,14 +74,14 @@
                             <div class="flex mt-6">
                                 <i data-feather="mail" class="size-5 text-green-600 me-3"></i>
                                 <div class="">
-                                    <a href="mailto:contact@example.com" class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">contact@example.com</a>
+                                    <a href="mailto:contact@example.com" class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">isoqulovbekzod6@gmail.com</a>
                                 </div>
                             </div>
 
                             <div class="flex mt-6">
                                 <i data-feather="phone" class="size-5 text-green-600 me-3"></i>
                                 <div class="">
-                                    <a href="tel:+152534-468-854" class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+152 534-468-854</a>
+                                    <a href="tel:+99897 030 0956" class="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+99897 030 0956</a>
                                 </div>
                             </div>
                         </div><!--end col-->

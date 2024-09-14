@@ -4,7 +4,7 @@ declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
 
 /**
- * @var array $args
+ * @var $args
  */
 ?>
     <div class="page-wrapper toggled">
