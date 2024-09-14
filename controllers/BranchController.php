@@ -26,9 +26,9 @@ class BranchController
         loadView('single-branch', ['branch' => $branch]);
     }
 
-    public function branch($id): void
+    public function branch($name): void
     {
-        $branch = (new Branch())->getBranchSame($id);
+        $branch = (new Branch())->getBranchesSame($name);
         loadView('dashboard/branch', ['branch' => $branch]);
 
     }

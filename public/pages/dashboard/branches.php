@@ -49,7 +49,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 
                                 <div class="p-6">
                                     <div class="pb-6">
-                                        <a href="/branch/same/<?= $branch->id ?>" class="text-xl font-medium hover:text-green-600 transition-all duration-500 ease-in-out"><?= $branch->name ?></a>
+                                        <a href="/branch/same/<?= $branch->name ?>" class="text-xl font-medium hover:text-green-600 transition-all duration-500 ease-in-out"><?= $branch->name ?></a>
                                     </div>
 
                                     <ul class="pt-6 flex justify-between items-center list-none">

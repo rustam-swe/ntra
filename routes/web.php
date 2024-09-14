@@ -31,7 +31,7 @@ Router::post('/admin/ads/{id}', fn($id) => (new AdController())->update($id));
 Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
 Router::get('/admin/branches', fn() => (new \Controller\BranchController())->index(), 'auth');
 Router::get('/user/branches', fn() => (new \Controller\BranchController())->indexUser());
-Router::get('/branch/same/{id}',fn($id) => (new \Controller\BranchController())->branch($id) );
+Router::get('/branch/same/{name}',fn($name) => (new \Controller\BranchController())->branch($name) );
 
 
 Router::get('/about', fn() => (new \Controller\UserController())->about());
