@@ -37,12 +37,12 @@ class Session
         return '';
     }
 
-    public function getRoleId(): string|bool
+    public function getRoleId()
     {
         if (isset($this->getUser()['role_id'])) {
             return $this->getUser()['role_id'];
         }
 
-        return "false";
+        return '';
     }
 }

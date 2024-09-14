@@ -9,7 +9,7 @@ use App\Branch;
 use App\Session;
 use App\Status;
 
-class AdminAdController
+class AdController
 {
     public Ads $ads;
 
@@ -47,32 +47,29 @@ class AdminAdController
             && $_POST['address']
             && $_POST['rooms']
             && $_POST['branch']
-            && $_POST['gender']
         ) {
             if ($id) {
                 $ad = $this->ads->updateAds(
                     $id,
                     $_POST['title'],
                     trim($_POST['description']),
-                    (int)(new Session())->getId(),
+                    (new Session())->getId(),
                     Status::ACTIVE,
                     (int) $_POST['branch'],
                     $_POST['address'],
                     (float) $_POST['price'],
-                    (int) $_POST['rooms'],
-                    $_POST['gender']
+                    (int) $_POST['rooms']
                 );
             } else {
                 $ad = $this->ads->createAds(
                     $_POST['title'],
                     trim($_POST['description']),
-                    (int)(new Session())->getId(),
+                    (new Session())->getId(),
                     Status::ACTIVE,
                     (int) $_POST['branch'],
                     $_POST['address'],
                     (float) $_POST['price'],
-                    (int) $_POST['rooms'],
-                    $_POST['gender']
+                    (int) $_POST['rooms']
                 );
             }
 
@@ -107,7 +104,6 @@ class AdminAdController
     public function delete(int $id): void
     {
         $this->ads->deleteAds($id);
-        redirect('/admin/ads');
     }
 
     public function search(): void
@@ -124,8 +120,4 @@ class AdminAdController
         loadView('home', ['ads' => $ads, 'branches' => $branches]);
     }
 
-    public function setAsLiked()
-    {
-        
-    }
 }
