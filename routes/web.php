@@ -9,6 +9,7 @@ Router::get('/', fn() => loadController('home'));
 
 Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
 Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth');
+Router::get('/admin/ads', fn() => (new AdController())->index(), 'auth');
 Router::get('/admin/ads/store', fn() => (new AdController())->store(), 'auth');
 Router::get('/ads/create', fn() => loadView('dashboard/create-ad'));
 Router::post('/ads/create', fn() => (new AdController())->create());
@@ -26,11 +27,12 @@ Router::post('/login', fn() => (new \Controller\AuthController())->login());
 
 Router::get('/logout', fn() => (new \Controller\AuthController())->logout(), 'auth');
 
-
+Router::post('/admin/ads/{id}', fn($id) => (new AdController())->update($id));
 Router::get('/admin', fn() => loadView('dashboard/home'), 'auth');
-Router::get('/admin/ads', fn() => (new AdController())->index(), 'auth');
 Router::get('/admin/branches', fn() => (new \Controller\BranchController())->index(), 'auth');
 Router::get('/user/branches', fn() => (new \Controller\BranchController())->indexUser());
+Router::get('/branch/same/{id}',fn($id) => (new \Controller\BranchController())->branch($id) );
+
 
 Router::get('/about', fn() => (new \Controller\UserController())->about());
 

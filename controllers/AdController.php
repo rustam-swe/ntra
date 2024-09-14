@@ -90,7 +90,8 @@ class AdController
 
     public function update(int $id): void
     {
-        loadView('dashboard/create-ad', ['ad' => $this->ads->getAd($id)]);
+
+        loadView('dashboard/update-ad', ['ad' => $this->ads->getAd($id)]);
     }
 
     public function delete(int $id): void

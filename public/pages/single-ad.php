@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 loadPartials('header');
 loadPartials('navbar');
 
@@ -90,7 +89,7 @@ loadPartials('navbar');
                             </div>
                         </div>
                     </div>
-                    <?php if ((new \App\Session())->getRoleId() == 1) : ?>
+                    <?php if ((new \App\Session())->getRoleId() == 1 || (new \App\Session())->getId() === $ad->user_id) :?>
                         <div class="mt-12 text-center">
                             <div class="mt-6">
                                 <form action="/ads/delete/<?= $ad->id ?>" method="post">
