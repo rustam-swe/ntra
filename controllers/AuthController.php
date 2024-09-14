@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Controllers;
 
 use App\Auth;
+use App\User;
 
 class AuthController
 {
@@ -15,6 +16,13 @@ class AuthController
         $password = $_POST['password'];
 
         (new Auth())->login($username, $password);
+
     }
+    public function logout(): void
+    {
+        session_destroy();
+        redirect('/');
+    }
+
 
 }

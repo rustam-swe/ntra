@@ -5,14 +5,21 @@ declare(strict_types=1);
 namespace Controllers;
 
 use App\Ads;
+use App\Branch;
+use App\Session;
+use App\Status;
+use App\Like;
 
 class AdController
 {
     public Ads $ads;
+    public Like $like;
 
     public function __construct()
     {
         $this->ads = new Ads();
+        $this->like = new Like();
+
     }
 
     public function index(): void
@@ -23,42 +30,58 @@ class AdController
 
     public function show(int $id): void
     {
-        /**
-         * @var $id
-         */
-        $ad        = $this->ads->getAd($id);
-        $ad->image = "../assets/images/ads/$ad->image";
-
+        $ad = $this->ads->getAd($id);
         loadView('single-ad', ['ad' => $ad]);
     }
 
     public function create(): void
     {
-        $title       = $_POST['title'];
-        $description = $_POST['description'];
-        $price       = (float) $_POST['price'];
-        $address     = $_POST['address'];
-        $rooms       = (int) $_POST['rooms'];
+        loadView('/dashboard/create-ad', [
+            'action'   => "/admin/ads/store",
+            'ad'       => null,
+            'branches' => (new Branch())->getBranches()
+        ]);
+    }
+
+    public function store(int|null $id = null): void
+    {
 
         if ($_POST['title']
             && $_POST['description']
             && $_POST['price']
             && $_POST['address']
             && $_POST['rooms']
+            && $_POST['gender']
+            && $_POST['branch']
         ) {
-            // TODO: Replace hardcoded values
-            $newAdsId = $this->ads->createAds(
-                $title,
-                $description,
-                5,
-                1,
-                1,
-                $address,
-                $price,
-                $rooms
-            );
+            if ($id) {
+                $ad = $this->ads->updateAds(
+                    $id,
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                     $_POST['price'],
+                    (int) $_POST['rooms'],
+                    (string)$_POST['gender']
+                );
+            } else {
+                $ad = $this->ads->createAds(
+                    $_POST['title'],
+                    trim($_POST['description']),
+                    (new Session())->getId(),
+                    Status::ACTIVE,
+                    (int) $_POST['branch'],
+                    $_POST['address'],
+                     $_POST['price'],
+                    (int) $_POST['rooms'],
+                    (string) $_POST['gender']
+                );
+            }
 
-            if ($newAdsId) {
+            if ($ad && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
                 $imageHandler = new \App\Image();
                 $fileName     = $imageHandler->handleUpload();
 
@@ -66,14 +89,12 @@ class AdController
                     exit('Rasm yuklanmadi!');
                 }
 
-                $imageHandler->addImage((int) $newAdsId, $fileName);
-
-                header('Location: /');
-
-                exit();
+                $imageHandler->addImage((int) $ad, $fileName);
             }
 
-            return;
+            header('Location: /admin/ads/create');
+
+            exit();
         }
 
         echo "Iltimos, barcha maydonlarni to'ldiring!";
@@ -81,11 +102,57 @@ class AdController
 
     public function update(int $id): void
     {
-        loadView('dashboard/create-ad', ['ad' => $this->ads->getAd($id)]);
+        loadView('dashboard/update-ad', [
+            'action'   => "/admin/ads/update/$id",
+            'ad'       => $this->ads->getAd($id),
+            'branches' => (new Branch())->getBranches(),
+        ]);
     }
 
     public function delete(int $id): void
     {
         $this->ads->deleteAds($id);
+    }
+    public function search(): void
+    {
+
+        $searchPhrase = $_REQUEST['search_phrase'];
+        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
+        $searchMaxPrice = $_GET['max_price'] ? (int) $_GET['max_price'] : PHP_INT_MAX;
+
+
+        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
+        $branches = (new \App\Branch())->getBranches();
+        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+    }
+    public function like(int $ads_id): void
+    {
+        $user_id = (new Session())->getId() ?? null;
+        if ($user_id) {
+            $result = $this->like->addLike($ads_id, $user_id);
+
+            if ($result) {
+                redirect('/');
+            }
+            else{
+                echo 'like qoshilmadi';
+            }
+        }else{
+            redirect('/login');
+        }
+    }
+    public function dislike(int $ads_id): void
+    {
+        $user_id = (new Session())->getId() ?? null;
+        if ($user_id) {
+            $result = $this->like->removeLike($ads_id, $user_id);
+            if ($result) {
+                redirect('/');
+            }
+            else{
+                redirect('/login');
+            }
+        }
     }
 }

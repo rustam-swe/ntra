@@ -63,50 +63,96 @@ class Router
 
     public static function post($path, $callback): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'
-            && $_SERVER['REQUEST_URI'] === $path
-            && strtolower($_REQUEST['_method']) === 'patch'
-        ) {
-            $callback();
-            exit();
-        }
-    }
-
-    public static function patch($path, $callback): void
-    {
-        $isPatch = strtolower($_REQUEST['_method']) === 'patch';
-
-        if (!$isPatch) {
-            return;
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === $path) {
             $callback();
             exit();
         }
     }
 
-    public static function delete(string $path, $callback): void
+    public static function patch($path, $callback, string|null $middleware = null): void
     {
-        if (isset($_REQUEST['_method'])) {
-            if (strtolower($_REQUEST['_method']) !== 'delete') {
-                return;
-            }
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if ((new self())->getResourceId()) {
-                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
-                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                    $callback((new self())->getResourceId());
-                    exit();
+            if(isset($_POST['_method'])) {
+                if (strtolower($_POST['_method']) === 'patch') {
+                    if ((new self())->getResourceId()) {
+                        $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+                        if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                            $callback((new self())->getResourceId());
+                            exit();
+                        }
+                    }
+                    if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                        (new Authentication())->handle($middleware);
+                        $callback();
+                        exit();
+                    }
                 }
             }
-            $callback();
-            exit();
         }
     }
-
+    public static function delete($path, $callback, string|null $middleware = null): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['_method'])) {
+                if (strtolower($_POST['_method']) === 'delete') {
+                    if ((new self())->getResourceId()) {
+                        $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+                        if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                            $callback((new self())->getResourceId());
+                            exit();
+                        }
+                    }
+                    if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                        (new Authentication())->handle($middleware);
+                        $callback();
+                        exit();
+                    }
+                }
+            }
+        }
+    }
+    public static function like($path, $callback, string|null $middleware = null): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['_method'])) {
+                if (strtolower($_POST['_method']) === 'like') {
+                    if ((new self())->getResourceId()) {
+                        $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+                        if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                            $callback((new self())->getResourceId());
+                            exit();
+                        }
+                    }
+                    if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                        (new Authentication())->handle($middleware);
+                        $callback();
+                        exit();
+                    }
+                }
+            }
+        }
+    }
+    public static function dislike($path, $callback, string|null $middleware = null): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if(isset($_POST['_method'])) {
+                if (strtolower($_POST['_method']) === 'dislike') {
+                    if ((new self())->getResourceId()) {
+                        $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+                        if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                            $callback((new self())->getResourceId());
+                            exit();
+                        }
+                    }
+                    if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                        (new Authentication())->handle($middleware);
+                        $callback();
+                        exit();
+                    }
+                }
+            }
+        }
+    }
     public static function errorResponse(int $code, $message = 'Error bad request'): void
     {
         http_response_code($code);

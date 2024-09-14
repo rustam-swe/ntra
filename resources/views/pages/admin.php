@@ -20,6 +20,26 @@ loadPartials(path: 'header', loadFromPublic: false);
         <div class="container-fluid relative px-3">
             <div class="layout-specing">
                 <!-- Start Content -->
+                <div class="md:flex justify-between items-center">
+                    <h5 class="text-lg font-semibold">Foydalanuvchilar</h5>
+
+                    <ul class="tracking-[0.5px] inline-block sm:mt-0 mt-3">
+                        <li class="inline-block capitalize text-[16px] font-medium duration-500 dark:text-white/70 hover:text-green-600 dark:hover:text-white">
+                            <a href="/admin">Dashboard</a></li>
+                        <li class="inline-block text-base text-slate-950 dark:text-white/70 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                            <i class="mdi mdi-chevron-right"></i></li>
+                        <li class="inline-block capitalize text-[16px] font-medium text-green-600 dark:text-white"
+                            aria-current="page">
+                            <a href="/admin/users">Foydalanuvchilar</a>
+                        </li>
+                        <li class="inline-block text-base text-slate-950 dark:text-white/70 mx-0.5 ltr:rotate-0 rtl:rotate-180">
+                            <i class="mdi mdi-chevron-right"></i></li>
+                        <li class="inline-block capitalize text-[16px] font-medium text-green-600 dark:text-white"
+                            aria-current="page"><?= $user->username ?>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="grid md:grid-cols-12 grid-cols-1 gap-6 mt-6">
                     <div class="xl:col-span-3 lg:col-span-4 md:col-span-4">
                         <div class="p-6 rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
