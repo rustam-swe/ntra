@@ -24,9 +24,10 @@ class Ads
         string $address,
         float  $price,
         int    $rooms,
+        string $gender
     ): false|string {
-        $query = "INSERT INTO ads (title, description, user_id, status_id, branch_id, address, price, rooms, created_at) 
-                  VALUES (:title, :description, :user_id, :status_id, :branch_id, :address, :price, :rooms, NOW())";
+        $query = "INSERT INTO ads (title, description, user_id, status_id, branch_id, address, price, rooms, created_at,gender) 
+                  VALUES (:title, :description, :user_id, :status_id, :branch_id, :address, :price, :rooms, NOW(),:gender)";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':title', $title);
@@ -37,6 +38,7 @@ class Ads
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':rooms', $rooms);
+        $stmt->bindParam(':gender', $gender);
         $stmt->execute();
 
         return $this->pdo->lastInsertId();
@@ -67,12 +69,13 @@ class Ads
         $query = "SELECT *, 
                         ads.id AS id,
                         ads.address AS address,
-                        ads_image.name AS image
+                        ads_image.name AS image,
+                        branch.name as branch_name
                   FROM ads
                     JOIN branch ON branch.id = ads.branch_id
                     LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
         return $this->pdo->query($query)->fetchAll();
-    }
+    }   
 
     public function getUsersAds(int $userId): false|array
     {
@@ -237,5 +240,13 @@ class Ads
         $stmt->execute($params);
         dd($stmt->queryString);
         return $stmt->fetchAll();
+    }
+    public function branches($id): false|array
+    {
+        $sql="Select * from ads where ads.branch_id=$id";
+        $stmt=$this->pdo->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+
     }
 }

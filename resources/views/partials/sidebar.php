@@ -19,6 +19,8 @@
                 </div>
             </li>
 
+            
+            <?php if ((new \App\Auth())->check() === 1): ?>
             <li>
                 <a href="/admin/branches"><i class="mdi mdi-home-heart me-2"></i>Filiallar</a>
             </li>
@@ -27,12 +29,12 @@
                 <a href="javascript:void(0)"><i class="mdi mdi-account-edit me-2"></i>Foydalanuvchilar</a>
                 <div class="sidebar-submenu">
                     <ul>
-                        <li><a href="/admin/users/create"><i class="mdi mdi-home-plus me-2"></i>Foydalanuvchi
-                                qo'shish</a></li>
+                        <li><a href="/admin/users/create"><i class="mdi mdi-home-plus me-2"></i>Foydalanuvchi qo'shish</a></li>
                         <li><a href="/admin/users"><i class="mdi mdi-home-city me-2"></i>Foydalanuvchilar</a></li>
                     </ul>
                 </div>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>

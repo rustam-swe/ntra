@@ -92,17 +92,19 @@ class Router
 
     public static function delete(string $path, $callback): void
     {
-        if (isset($_REQUEST['_method'])) {
-            if (strtolower($_REQUEST['_method']) !== 'delete') {
-                return;
-            }
+        $method = $_REQUEST['_method'] ?? '';
+
+        if (strtolower($method) !== 'delete') {
+            return;
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if ((new self())->getResourceId()) {
-                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+            $resourceId = (new self())->getResourceId();
+
+            if ($resourceId) {
+                $path = str_replace('{id}', (string)$resourceId, $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                    $callback((new self())->getResourceId());
+                    $callback($resourceId);
                     exit();
                 }
             }

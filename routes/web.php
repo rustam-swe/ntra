@@ -5,10 +5,19 @@ declare(strict_types=1);
 use App\Router;
 use Controllers\AdController;
 use Controllers\UserController;
+use App\Branch;
 
 Router::get('/', fn() => loadController('home'));
 
+Router::get('/about', fn()=> loadController('about'));
+
+Router::get('/profile', fn() => (new \Controllers\UserController())->loadProfile(), 'auth');
+Router::get('/branch', fn()=> loadController('branch'));
+
+Router::get('/logout', fn()=> (new UserController())->logout());
+
 Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
+Router::get('/branches/{id}', fn(int $id) => (new AdController())->show_branch($id));
 Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth');
 Router::post('/admin/ads/store', fn() => (new AdController())->store());
 Router::get('/admin/ads/update/{id}', fn(int $id) => (new AdController())->update($id));
@@ -32,6 +41,8 @@ Router::get('/admin/users/{id}', fn(int $id) => (new UserController())->show($id
 Router::get('/admin/users/update/{id}', fn(int $id) => (new UserController())->update($id), 'auth');
 
 Router::get('/search', fn() => (new AdController())->search());
+
+Router::get('/search_branch', fn() => (new AdController())->search_branch());
 
 Router::errorResponse(404, 'Not Found');
 

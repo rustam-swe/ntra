@@ -86,6 +86,25 @@
                     </div>
                 </div>
 
+                <div class="md:col-span-12 col-span-12">
+                        <label for="branch" class="font-medium">Gender:</label>
+                        <div class="form-icon relative mt-2">
+                            <select class="form-select form-input w-full py-2 h-10 bg-white dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 focus:border-gray-200 dark:border-gray-800 dark:focus:border-gray-700 focus:ring-0"
+                                    id="gender" name="gender">
+                                <?php
+
+
+                                        echo "<option value='male' selected>male</option>";
+
+                                        echo "<option value='female'>female</option>";
+
+                                 ?>
+                            </select>
+                        </div>
+                    </div>
+							</div>
+						</div>
+
                 <button type="submit" id="submit" name="send"
                         class="btn bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700 text-white rounded-md mt-5">
                     <i class="mdi mdi-content-save me-2"></i>

@@ -39,10 +39,11 @@ class Session
 
     public function getRoleId()
     {
+        
         if (isset($this->getUser()['role_id'])) {
             return $this->getUser()['role_id'];
         }
 
-        return '';
+        return '' ;
     }
 }

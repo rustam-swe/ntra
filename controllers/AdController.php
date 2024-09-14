@@ -30,6 +30,12 @@ class AdController
         loadView('single-ad', ['ad' => $ad]);
     }
 
+    public function show_branch(int $id):void
+    {
+        $ads=$this->ads->branches($id);
+        loadView('dashboard/single-branch', ['ads' => $ads]);
+    }
+
     public function create(): void
     {
         loadView('/dashboard/create-ad', [
@@ -41,38 +47,42 @@ class AdController
 
     public function store(int|null $id = null): void
     {
-        if ($_POST['title']
-            && $_POST['description']
-            && $_POST['price']
-            && $_POST['address']
-            && $_POST['rooms']
-            && $_POST['branch']
-        ) {
-            if ($id) {
-                $ad = $this->ads->updateAds(
-                    $id,
-                    $_POST['title'],
-                    trim($_POST['description']),
-                    (new Session())->getId(),
-                    Status::ACTIVE,
-                    (int) $_POST['branch'],
-                    $_POST['address'],
-                    (float) $_POST['price'],
-                    (int) $_POST['rooms']
-                );
-            } else {
-                $ad = $this->ads->createAds(
-                    $_POST['title'],
-                    trim($_POST['description']),
-                    (new Session())->getId(),
-                    Status::ACTIVE,
-                    (int) $_POST['branch'],
-                    $_POST['address'],
-                    (float) $_POST['price'],
-                    (int) $_POST['rooms']
-                );
-            }
+       
 
+         if ($_POST['title']
+             && $_POST['description']
+             && $_POST['price']
+             && $_POST['address']
+             && $_POST['rooms']
+             && $_POST['branch']
+             && $_POST['gender']
+         ) {
+             if ($id) {
+                 $ad = $this->ads->updateAds(
+                     $id,
+                     $_POST['title'],
+                     trim($_POST['description']),
+                     (new Session())->getId(),
+                     Status::ACTIVE,
+                     (int) $_POST['branch'],
+                     $_POST['address'],
+                     (float) $_POST['price'],
+                     (int) $_POST['rooms'],
+                     $_POST['gender']
+                 );
+             } else {
+                 $ad = $this->ads->createAds(
+                     $_POST['title'],
+                     trim($_POST['description']),
+                     (new Session())->getId(),
+                     Status::ACTIVE,
+                     (int) $_POST['branch'],
+                     $_POST['address'],
+                     (float) $_POST['price'],
+                     (int) $_POST['rooms'],
+                     $_POST['gender']
+                 );
+             }
             if ($ad && $_FILES['image']['error'] !== UPLOAD_ERR_OK) {
                 $imageHandler = new \App\Image();
                 $fileName     = $imageHandler->handleUpload();
@@ -116,8 +126,22 @@ class AdController
 
 
         $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
-        $branches = (new \App\Branch())->getBranches();
+        $branches = (new \App\Branch())->getBranchs();
         loadView('home', ['ads' => $ads, 'branches' => $branches]);
     }
+    
+    public function search_branch(): void
+    {
+
+        $searchPhrase = $_REQUEST['search_phrase'];
+        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        
+
+
+        $ads = (new \App\Branch())->search($searchPhrase, $searchBranch);
+        $branches = (new \App\Branch())->getBranches();
+        loadView('branch', ['branch' => $branch, 'branches' => $branches]);
+    }
+    
 
 }

@@ -29,4 +29,24 @@ class UserController
         loadView('edit-profile', ['user' => $user], false);
     }
 
+    public function logout()
+    {
+       session_destroy();
+       redirect("/");
+    }
+
+    public function loadProfile(): void
+    {
+      
+        $userId = (int) (new Session())->getId();
+    
+     
+        $ads = (new Ads())->getUsersAds($userId);
+    
+     
+        loadView('profile', ['ads' => $ads , 'user' => (new User())->getUser($userId)], false);
+    }
+
+
+
 }
