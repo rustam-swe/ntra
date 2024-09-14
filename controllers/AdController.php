@@ -6,6 +6,7 @@ namespace Controllers;
 
 use App\Ads;
 use App\Branch;
+use App\Role;
 use App\Session;
 use App\Status;
 
@@ -21,7 +22,7 @@ class AdController
     public function index(): void
     {
         $ads = $this->ads->getAds();
-        loadView('dashboard/ads', ['ads' => $ads]);
+        loadDashboard('ads', ['ads' => $ads]);
     }
 
     public function show(int $id): void
@@ -32,7 +33,7 @@ class AdController
 
     public function create(): void
     {
-        loadView('/dashboard/create-ad', [
+        loadDashboard('create-ad', [
             'action'   => "/admin/ads/store",
             'ad'       => null,
             'branches' => (new Branch())->getBranches()
@@ -69,7 +70,8 @@ class AdController
                     (int) $_POST['branch'],
                     $_POST['address'],
                     (float) $_POST['price'],
-                    (int) $_POST['rooms']
+                    (int) $_POST['rooms'],
+                    $_POST['gender']
                 );
             }
 
@@ -84,9 +86,11 @@ class AdController
                 $imageHandler->addImage((int) $ad, $fileName);
             }
 
-            header('Location: /admin/ads/create');
-
-            exit();
+            if ((new Session())->getRoleId() === Role::ADMIN) {
+                redirect('Location: /admin');
+            } else {
+                redirect('Location: /');
+            }
         }
 
         echo "Iltimos, barcha maydonlarni to'ldiring!";

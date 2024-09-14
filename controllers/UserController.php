@@ -12,7 +12,7 @@ class UserController
 {
     public function index(): void
     {
-        loadView('/dashboard/users', ['users' => (new User())->getUsers()]);
+        loadDashboard('users', ['users' => (new User())->getUsers()]);
     }
 
     public function show(int $id): void
@@ -20,7 +20,7 @@ class UserController
         $user = (new User())->getUser($id);
         $ads  = (new Ads())->getUsersAds((new Session())->getId());
 
-        loadView('profile', ['user' => $user, 'ads' => $ads], false);
+        loadDashboard('profile', ['user' => $user, 'ads' => $ads]);
     }
 
     public function update(int $id): void
@@ -29,4 +29,10 @@ class UserController
         loadView('edit-profile', ['user' => $user], false);
     }
 
+    public function profile(): void
+    {
+        $user = (new User())->getUser((new Session())->getId());
+        $ads  = (new Ads())->getUsersAds((new Session())->getId());
+        loadDashboard('profile', ['user' => $user, 'ads' => $ads]);
+    }
 }

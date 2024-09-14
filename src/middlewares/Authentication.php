@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\middlewares;
 
+use App\Role;
 use App\Session;
 
 class Authentication
@@ -21,6 +22,10 @@ class Authentication
         } elseif ($middleware === 'auth') {
             if (!(new Session())->getUser()) {
                 redirect('/login');
+            }
+        } elseif ($middleware === 'admin') {
+            if (!((new Session())->getRoleId() === Role::ADMIN)) {
+                redirect('/');
             }
         }
     }
