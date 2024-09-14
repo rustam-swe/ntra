@@ -24,9 +24,10 @@ class Ads
         string $address,
         float  $price,
         int    $rooms,
+        string $gender
     ): false|string {
-        $query = "INSERT INTO ads (title, description, user_id, status_id, branch_id, address, price, rooms, created_at) 
-                  VALUES (:title, :description, :user_id, :status_id, :branch_id, :address, :price, :rooms, NOW())";
+        $query = "INSERT INTO ads (title, description, user_id, status_id, branch_id, address, price, rooms, gender, created_at) 
+                  VALUES (:title, :description, :user_id, :status_id, :branch_id, :address, :price, :rooms, :gender, NOW())";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':title', $title);
@@ -37,6 +38,7 @@ class Ads
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':rooms', $rooms);
+        $stmt->bindParam(':gender', $gender);
         $stmt->execute();
 
         return $this->pdo->lastInsertId();
@@ -64,15 +66,13 @@ class Ads
 
     public function getAds(): false|array
     {
-        $query = "SELECT *, 
-                        ads.id AS id,
-                        ads.address AS address,
-                        ads_image.name AS image,
-                        branch.name    AS branch_name
-                        
-                  FROM ads
-                    JOIN branch ON branch.id = ads.branch_id
-                    LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
+        $query = "SELECT 
+                ads.*,
+                branch.name AS branch_name,
+                ads_image.name AS image
+          FROM ads
+          JOIN branch ON branch.id = ads.branch_id
+          LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
         return $this->pdo->query($query)->fetchAll();
     }
 
@@ -95,11 +95,12 @@ class Ads
         int    $branch_id,
         string $address,
         float  $price,
-        int    $rooms
+        int    $rooms,
+        string $gender
     ) {
         $query = "UPDATE ads SET title = :title, description = :description, user_id = :user_id,
                  status_id = :status_id, branch_id = :branch_id, address = :address, 
-                 price = :price, rooms = :rooms, updated_at = NOW() WHERE id = :id";
+                 price = :price, rooms = :rooms, gender = :gender updated_at = NOW() WHERE id = :id";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
@@ -111,6 +112,7 @@ class Ads
         $stmt->bindParam(':address', $address);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':rooms', $rooms);
+        $stmt->bindParam(':gender', $gender);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -120,9 +122,10 @@ class Ads
     {
         $image = $this->pdo->query("SELECT name FROM ads_image WHERE ads_id = $id")->fetch()->name;
         unlink("assets/images/ads/$image");
-        $query = "DELETE FROM ads WHERE id = :id";
+        $query = "DELETE FROM ads WHERE id = :id AND ads.user_id = :user_id";
         $stmt  = $this->pdo->prepare($query);
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':user_id', $_SESSION['user']['id']);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -237,7 +240,7 @@ class Ads
 
 
         $stmt->execute($params);
-        dd($stmt->queryString);
         return $stmt->fetchAll();
     }
+
 }

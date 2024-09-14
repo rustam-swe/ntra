@@ -35,6 +35,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                     </div>
                 </div>
 
+
                 <div class="grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 mt-6 gap-6">
                     <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                         <div class="p-5 flex items-center justify-between">
@@ -52,7 +53,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                         </div>
                     </div><!--end-->
 
-                    <div class="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
+                    <div class="relativadse overflow-hidden rounded-md shadow dark:shadow-gray-700 bg-white dark:bg-slate-900">
                         <div class="p-5 flex items-center justify-between">
                                     <span class="me-3">
                                         <span class="text-slate-400 block">Total Visitor</span>

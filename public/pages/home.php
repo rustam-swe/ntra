@@ -2,6 +2,10 @@
 
 loadPartials('header');
 loadPartials('navbar');
+/**
+ * @var $branches
+ */
+//dd($ads);
 ?>
     <!-- Start -->
     <section class="relative lg:py-24 py-16">
@@ -36,10 +40,9 @@ loadPartials('navbar');
                                                     <select class="form-select z-2" data-trigger name="choices-catagory"
                                                             id="choices-catagory-buy"
                                                             aria-label="Default select example">
-                                                        <option>Houses</option>
-                                                        <option>Apartment</option>
-                                                        <option>Offices</option>
-                                                        <option>Townhome</option>
+                                                        <?php foreach ($branches as $branch): ?>
+                                                        <option value="<?php echo $branch->id ?>"><?= $branch->name?></option>
+                                                    <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -69,7 +72,7 @@ loadPartials('navbar');
                                             </div>
 
                                             <div class="lg:mt-6">
-                                                <input type="submit" id="search-buy" name="search"
+                                                <input type="submit" id="search-buy" name="/search"
                                                        class="btn bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700 text-white searchbtn submit-btn w-full !h-12 rounded"
                                                        value="Qidirish">
                                             </div>
@@ -96,7 +99,7 @@ loadPartials('navbar');
                             echo \App\Image::show($ad->image); ?>" alt="">
 
                             <div class="absolute top-4 end-4">
-                                <a href="javascript:void(0)"
+                                <a href="/like/<?= $ad->id ?>"
                                    class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
                                             class="mdi mdi-heart text-[20px]"></i></a>
                             </div>
@@ -111,17 +114,17 @@ loadPartials('navbar');
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span><?= $ad->branch_name ?></span>
+                                    <span><?php echo $ad->branch_name ?></span>
                                 </li>
 
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <span><?php echo $ad->gender ?></span>
                                 </li>
 
                                 <li class="flex items-center">
                                     <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <span>Rooms <?= $ad->rooms ?></span>
                                 </li>
                             </ul>
 

@@ -3,6 +3,7 @@
  * @var string $action
  * @var string|null $ad
  * @var array $branches
+ * @var array $genders
  */
 
 ?>
@@ -68,6 +69,25 @@
                                 } ?>
                             </select>
                         </div>
+                        <div class="md:col-span-12 col-span-12">
+                            <label for="branch" class="font-medium">Gender:</label>
+                            <div class="form-icon relative mt-2">
+                                <select class="form-select form-input w-full py-2 h-10 bg-white dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 focus:border-gray-200 dark:border-gray-800 dark:focus:border-gray-700 focus:ring-0"
+                                        id="gender" name="gender">
+                                    <?php
+                                    echo isset($ad) ? '' : "<option value='0'>Jinsni tanlang</option>";
+                                    foreach ($genders as $gender) {
+                                        if (isset($ad) && $gender->id === $ad->gender_id) {
+                                            echo "<option value='$gender->id' selected>$gender->name</option>";
+                                        } else {
+                                            echo "<option value='$gender->id'>$gender->name</option>";
+                                        }
+                                    } ?>
+                                    <option value="male" >ERKAK!!!!!!</option>
+                                    <option value="female">Ayol</option>
+                                    <option value="nothing">Odam Podam basman</option>
+                                </select>
+
                     </div>
                     <div class="col-span-12">
                         <label for="price" class="font-medium">Narxi:</label>
