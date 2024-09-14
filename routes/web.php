@@ -20,7 +20,7 @@ Router::get('/ads/create', fn() => (new AdController())->create(), 'auth');
 Router::post('/ads/create', fn() => (new AdController())->store());
 
 
-Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'auth');
+Router::get('/admin/ads/create', fn() => (new AdController())->create(), 'admin');
 Router::post('/admin/ads/store', fn() => (new AdController())->store());
 Router::get('/admin/ads/update/{id}', fn(int $id) => (new AdController())->update($id), 'admin');
 Router::patch('/admin/ads/update/{id}', fn(int $id) => (new AdController())->store($id));
