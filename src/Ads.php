@@ -66,6 +66,7 @@ class Ads
     {
         $query = "SELECT *, 
                         ads.id AS id,
+                        branch.name    AS branch_name,
                         ads.address AS address,
                         ads_image.name AS image
                   FROM ads
@@ -176,7 +177,8 @@ class Ads
         int|null $searchBranch = null,
         int      $searchMinPrice = 0,
         int      $searchMaxPrice = PHP_INT_MAX
-    ) {
+    ): false|array
+    {
 
         $query  = "SELECT *, 
                         ads.id AS id,
@@ -203,6 +205,25 @@ class Ads
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
+
+    public function searchBranch($searchBranch): false|array
+    {
+        $query  = "SELECT *, 
+                    ads.id AS id,
+                    ads.address AS address,
+                    ads_image.name AS image
+               FROM ads
+               JOIN branch ON branch.id = ads.branch_id
+               LEFT JOIN ads_image ON ads.id = ads_image.ads_id
+               WHERE branch_id = :searchBranch";
+
+        $params = [':searchBranch' => $searchBranch];  // Make sure $params is an array with the correct value
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);  // Fetch as objects to match the rest of your code
+    }
+
 
     public function iSearch(
         string   $searchPhrase,

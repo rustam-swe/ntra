@@ -2,7 +2,7 @@
     <div class="header-bar flex justify-between">
         <div class="flex items-center space-x-1">
             <!-- Logo -->
-            <a href="#" class="xl:hidden block me-2">
+            <a href="/" class="xl:hidden block me-2">
                 <img src="/dashboard/assets/images/logo-icon-32.png" class="md:hidden block" alt="">
                 <span class="md:block hidden">
                     <img src="/dashboard/assets/images/logo-dark.png" class="inline-block dark:hidden" alt="">

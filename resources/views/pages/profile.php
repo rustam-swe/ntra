@@ -10,7 +10,7 @@ loadPartials(path: 'header', loadFromPublic: false);
 ?>
 <div class="page-wrapper toggled">
     <?php
-    loadPartials('sidebar', loadFromPublic: false); ?>
+    loadPartials('user-sidebar', loadFromPublic: false); ?>
 
     <!-- Start Page Content -->
     <main class="page-content bg-gray-50 dark:bg-slate-800">
@@ -130,7 +130,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                                                 <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                                     <li class="flex items-center me-4">
                                                         <i class="mdi mdi-arrow-expand-all text-2xl me-2 text-green-600"></i>
-                                                        <span>8000sqf</span>
+                                                        <span><?= $ad->branch_name ?></span>
                                                     </li>
 
                                                     <li class="flex items-center me-4">

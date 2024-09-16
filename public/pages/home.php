@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * @var $branches
+ */
+
 loadPartials('header');
-loadPartials('navbar');
+loadPartials('navbar', ['branches' => $branches]);
+
+
 ?>
     <!-- Start -->
     <section class="relative lg:py-24 py-16">
@@ -111,17 +117,17 @@ loadPartials('navbar');
                             <ul class="py-6 border-y border-slate-100 dark:border-gray-800 flex items-center list-none">
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-compress-arrows text-2xl me-2 text-green-600"></i>
-                                    <span>8000sqf</span>
+                                    <span><?= $ad->branch_name ?></span>
                                 </li>
 
                                 <li class="flex items-center me-4">
                                     <i class="uil uil-bed-double text-2xl me-2 text-green-600"></i>
-                                    <span>4 Beds</span>
+                                    <span><?= $ad->gender ?></span>
                                 </li>
 
                                 <li class="flex items-center">
                                     <i class="uil uil-bath text-2xl me-2 text-green-600"></i>
-                                    <span>4 Baths</span>
+                                    <span><?= $ad->rooms ?></span>
                                 </li>
                             </ul>
 

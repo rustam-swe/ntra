@@ -24,6 +24,7 @@ function basePath(string $path): string
 
 function loadView(string $path, array|null $args = null, bool $loadFromPublic = true): void
 {
+//    dd('smth');
     if ($loadFromPublic) {
         $file = "/public/pages/$path.php";
     } else {
