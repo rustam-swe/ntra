@@ -1,7 +1,7 @@
 <nav id="topnav" class="defaultscroll is-sticky">
     <div class="container relative">
         <!-- Start Logo container-->
-        <a class="logo" href="index.html">
+        <a class="logo" href="/">
                     <span class="inline-block dark:hidden">
                         <img src="assets/images/logo-dark.png" class="l-dark" height="24" alt="">
                         <img src="assets/images/logo-light.png" class="l-light" height="24" alt="">
@@ -43,122 +43,10 @@
         <div id="navigation">
             <!-- Navigation Menu-->
             <ul class="navigation-menu justify-end nav-light">
-                <li class="has-submenu parent-parent-menu-item">
-                    <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
 
-                    <ul class="submenu megamenu">
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-one.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero One</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-two.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-two.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Two</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                <li><a href="/user/branches" class="sub-menu-item">Branch</a></li>
 
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-three.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-three.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Three</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-four.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-four.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Four</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-five.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-five.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Five</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-six.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-six.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Six</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-seven.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-seven.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Seven</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="index-eight.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-eight.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Eight</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <ul>
-                                <li>
-                                    <a href="index-nine.html" class="sub-menu-item">
-                                        <div class="lg:text-center">
-                                            <span class="none lg:block"><img src="assets/images/demos/hero-nine.png"
-                                                                             class="img-fluid rounded shadow-md" alt=""></span>
-                                            <span class="lg:mt-2 block">Hero Nine <span
-                                                        class="bg-yellow-500 inline-block text-white text-[10px] font-bold px-2.5 py-0.5 rounded h-5 ms-1">New</span></span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li><a href="buy.html" class="sub-menu-item">Buy</a></li>
-
-                <li><a href="sell.html" class="sub-menu-item">Sell</a></li>
+                <li><a href="/about" class="sub-menu-item">About</a></li>
 
                 <li class="has-submenu parent-parent-menu-item">
                     <a href="javascript:void(0)">Listing</a><span class="menu-arrow"></span>

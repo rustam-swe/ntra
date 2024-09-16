@@ -31,7 +31,14 @@ class Branch
 
         return $stmt->execute();
     }
-
+    public function getBranchSame(int $id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE id = :id AND name = :name");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetchall();
+    }
     public function getBranch(int $id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM branch WHERE id = :id");
