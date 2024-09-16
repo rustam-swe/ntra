@@ -2,7 +2,7 @@
 <html lang="en" class="dark scroll-smooth" dir="ltr">
 <head>
     <meta charset="UTF-8" />
-    <title>NTRA - Super-puper rent app!</title>
+    <title>NTRA - The best rent appartment website!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta content="Real Estate Website Landing Page" name="description" />
     <meta content="Real Estate, buy, sell, Rent, tailwind Css" name="keywords" />
